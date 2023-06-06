@@ -10,6 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public class Jfun {
+public static void welcome() {
+System.out.print("###\nSecureKey Manager 0.1\nCaC 4.0-23438-2023 SEM1\nMurad Pretz Matias Martin\n33.366.158\n###"
+};
     public static void save() {
         Scanner sc = new Scanner(System.in);
         while (true) {
