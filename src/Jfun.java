@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Jfun {
     static Scanner sc = new Scanner(System.in);
 
-    public static void print(String msg) { // Metodo abreviado de salida.
-        System.out.print(msg);
+    public static void print(String s) { // Metodo abreviado de salida.
+        System.out.print(s);
     }
 
     public static void pausa(int ms) { // Pausa la ejecucion durante x milisegundos.
