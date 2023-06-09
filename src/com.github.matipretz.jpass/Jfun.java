@@ -1,4 +1,4 @@
-package src;
+package com.github.matipretz.jpass;
 
 import java.util.Scanner;
 
