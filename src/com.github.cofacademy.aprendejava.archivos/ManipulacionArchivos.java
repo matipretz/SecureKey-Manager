@@ -1,4 +1,4 @@
-package com.cofacademy.filemanager;
+package src.com.github.cofacademy.aprendejava.archivos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
