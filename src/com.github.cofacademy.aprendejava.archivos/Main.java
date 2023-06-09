@@ -1,4 +1,4 @@
-package com.cofacademy.main;
+package src.com.github.cofacademy.aprendejava.archivos;
 
 import com.cofacademy.filemanager.ManipulacionArchivos;
 
