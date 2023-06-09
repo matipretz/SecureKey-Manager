@@ -1,4 +1,3 @@
-base.py
 ### Java ###
 # Compiled class file
 *.class
@@ -81,6 +80,11 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
+
+# Model files
+base.py
+ManipulacionArchivos.java
+Main.java
 
 # Windows shortcuts
 *.lnk
