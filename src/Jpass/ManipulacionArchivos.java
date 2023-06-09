@@ -1,4 +1,4 @@
-package src.com.github.cofacademy.aprendejava.archivos;
+package src.Jpass;
 
 import java.io.File;
 import java.io.FileNotFoundException;

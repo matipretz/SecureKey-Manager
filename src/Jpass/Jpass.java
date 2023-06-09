@@ -1,4 +1,5 @@
-package com.github.matipretz.jpass;
+package src.Jpass;
+
 
 public class Jpass {
     public static void main(String[] args) {

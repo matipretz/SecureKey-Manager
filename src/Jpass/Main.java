@@ -1,8 +1,5 @@
-package src.com.github.cofacademy.aprendejava.archivos;
+package src.Jpass;
 
-import com.cofacademy.filemanager.ManipulacionArchivos;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
