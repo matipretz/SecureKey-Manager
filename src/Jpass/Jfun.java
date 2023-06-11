@@ -1,5 +1,6 @@
 package src.Jpass;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Jfun {
@@ -18,8 +19,21 @@ public class Jfun {
     }
 
     public static void clear() { // Limpia la consola.
-        System.out.print("\033[H\033[2J");
+        print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public static void chkDirs() { //Verifica la existencia de las rutas necesarias y las crea si faltan.
+        String[] directories = {"data/reg", "data/backups"};
+        for (String directory : directories) {
+            File file = new File(directory);
+            if (!file.exists()) {
+                boolean created = file.mkdirs();
+                if (!created) {
+                    print(">> Error creando carpeta: " + directory);
+                }
+            }
+        }
     }
 
     public static void welcome() { // Mensaje de bienvenida.
@@ -31,8 +45,8 @@ public class Jfun {
     public static void menu() { // Menu principal.
         clear();
         print("### MENÚ PRINCIPAL ###\nSeleccione una opción:\n1. Iniciar sesión.\n2. Crear usuario.\n3. Salir.\n>");
-        int caso = sc.nextInt();
-        switch (caso) {
+        int c = sc.nextInt();
+        switch (c) {
             case 1:
                 iniciarSesion();
                 break;
@@ -40,21 +54,22 @@ public class Jfun {
                 // crearUsuario();
                 break;
             case 3:
-                System.out.println("Saliendo...");
+                print("Saliendo...");
                 pausa(1000);
                 System.exit(0);
             default:
-                System.out.println("Opción no válida. Vuelva a intentarlo.");
+                print("Opción no válida. Vuelva a intentarlo.");
                 break;
         }
     }
 
     public static void iniciarSesion() {
         clear();
-        print("### INICIAR SESION ###\nUsuario:\n>");
-        String usuario = sc.next();
-        print("Password:\n>");
+        print("### INICIAR SESION ###\nUsuario:\n>>");
+        String user = sc.next();
+        print("Password:\n>>");
         String password = sc.next();
+        Jcrud.createFile(user,password);
     }
     /*
      * def iniciarSesion
