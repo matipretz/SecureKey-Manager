@@ -82,9 +82,8 @@ $RECYCLE.BIN/
 *.msp
 
 # Model files
-base.py
-ManipulacionArchivos.java
-Main.java
+data
+Jlogin.java
 
 # Windows shortcuts
 *.lnk
