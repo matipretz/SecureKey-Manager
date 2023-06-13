@@ -9,9 +9,9 @@ public class Jpass {
         
         while (true) {
             Jfun.clear();
-            System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Crear password.\n2. Lista de passwords.\n3. Borar password.\n4. Salir.\n>");
+            System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords2.\n4. Borar password.\n5. Salir.\n>");
+            
             Scanner scanner = new Scanner(System.in);
-
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
@@ -19,13 +19,15 @@ public class Jpass {
                     Jcrud.createPassword(scanner);
                     break;
                 case 2:
-                    Jcrud.listPasswords();
                     Jcrud.readPassword(scanner);
                     break;
                 case 3:
-                    Jcrud.deletePassword(scanner);
+                    Jcrud.updatePassword(scanner);
                     break;
                 case 4:
+                    Jcrud.deletePassword(scanner);
+                    break;
+                case 5:
                     Jfun.clear();
                     System.out.print("Saliendo...");
                     Jfun.pausa(1500);
@@ -35,7 +37,6 @@ public class Jpass {
                     System.out.print("Opción no válida. Vuelva a intentarlo.");
                     break;
             }
-        }
-        
+        }        
     }
 }
