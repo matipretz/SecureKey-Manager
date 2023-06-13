@@ -87,8 +87,7 @@ public class Jcrud {
                     System.out.print(">> Ingrese la nueva password: ");
                     String newPassword = scanner.nextLine();// Toma el nuevo valor.
                     line = passwordName + ":" + newPassword; // Agregar la linea a la lista.
-                    System.out.println(">> password: " + passwordName+" actualizada.\nPresione [ENTER] para continuar."); // Muestra la segunda parte de la linea.
-                    scanner.nextLine(); // Consume la siguiente linea del scanner.
+                    
                 }
                 lines.add(line);
             }
@@ -100,7 +99,8 @@ public class Jcrud {
             for (String line : lines) { // Recorrer la lista con un bucle for each.
                 writer.println(line);// Escribe cada linea, editando de esta forma la linea que contiene el par buscado.
             }
-            System.out.println(">> password editada correctamente.");
+            System.out.println(">> Password: " + name + " actualizada.\nPresione [ENTER] para continuar."); // Muestra la segunda parte de la linea.
+            scanner.nextLine(); // Consume la siguiente linea del scanner.
         } catch (IOException e) {
             System.out.println(">> Error al editar la password: " + e.getMessage());
         }
@@ -130,7 +130,8 @@ public class Jcrud {
             for (String line : lines) { // Recorrer la lista con un bucle for each.
                 writer.println(line);// Escribe cada linea, borrando de esta forma la linea que contiene el par buscado.
             }
-            System.out.println(">> password borrada correctamente.");
+            System.out.println(">> Password " + name + " borrada correctamente.\nPresione [ENTER] para continuar.");
+            scanner.nextLine(); // Consume la siguiente linea del scanner.
         } catch (IOException e) {
             System.out.println(">> Error al borrar la password: " + e.getMessage());
         }
