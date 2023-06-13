@@ -1,5 +1,3 @@
-package src.Jpass;
-
 import java.util.Scanner;
 
 public class Jpass {

@@ -1,5 +1,3 @@
-package src.Jpass;
-
 import java.io.File;
 
 public class Jfun {
