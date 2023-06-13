@@ -1,10 +1,8 @@
 package src.Jpass;
 
 import java.io.File;
-import java.util.Scanner;
 
 public class Jfun {
-    Scanner scanner = new Scanner(System.in);
 
     public static void pausa(int ms) { // Pausa la ejecucion durante x milisegundos.
         try {
