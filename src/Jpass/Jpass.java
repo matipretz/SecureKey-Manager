@@ -5,12 +5,10 @@ import java.util.Scanner;
 public class Jpass {
     public static void main(String[] args) {        
         Jfun.chkDirs();
-        Jfun.welcome();
-        
+        Jfun.welcome();        
         while (true) {
             Jfun.clear();
             System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords2.\n4. Borar password.\n5. Salir.\n>");
-            
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
             scanner.nextLine();

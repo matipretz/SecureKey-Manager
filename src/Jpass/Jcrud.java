@@ -26,13 +26,11 @@ public class Jcrud {
             writer.println(name + ":" + password); //Agrega el contenido en una nueva linea del archivo.
             System.out.println(">> password creada y guardada correctamente.\nPresione [ENTER] para continuar.");
             scanner.nextLine(); // Consume la siguiente linea del scanner.
-
         } catch (IOException e) {
             Jfun.pausa(500);
             System.out.println(">> Error al crear o guardar la password: " + e.getMessage());
         }
     }
-
     public static void listPasswords() {
             Jfun.pausa(500);
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
@@ -40,13 +38,11 @@ public class Jcrud {
                 String line = fileScanner.nextLine(); // Linea por linea.
                 System.out.println(line.split(":")[0]); //Dividir la linea por su separador e imprimir la primera parte.
                 Jfun.pausa(50);
-
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
         }
     }
-
     public static void readPassword(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Leer passwords ###\n");
@@ -70,7 +66,6 @@ public class Jcrud {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
         }
     }
-
     public static void updatePassword(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Editar passwords ###\n");
@@ -86,8 +81,7 @@ public class Jcrud {
                 if (passwordName.equals(name)) { // Si la primera parte de la linea coincide con el dato ingresado:
                     System.out.print(">> Ingrese la nueva password: ");
                     String newPassword = scanner.nextLine();// Toma el nuevo valor.
-                    line = passwordName + ":" + newPassword; // Agregar la linea a la lista.
-                    
+                    line = passwordName + ":" + newPassword; // Agregar la linea a la lista.                    
                 }
                 lines.add(line);
             }
@@ -104,8 +98,7 @@ public class Jcrud {
         } catch (IOException e) {
             System.out.println(">> Error al editar la password: " + e.getMessage());
         }
-}
-
+    }
     public static void deletePassword(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Borrar passwords ###\n");
