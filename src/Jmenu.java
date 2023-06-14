@@ -29,7 +29,7 @@ public class Jmenu {
                     System.out.print("Cerrando sesion...");
                     Jfun.pausa(1500);
                     Jfun.clear();
-                    Jlogin.login();
+                    JloginMenu.loginMenu();
                 default:
                     System.out.print("Opción no válida. Vuelva a intentarlo.");
                     break;
