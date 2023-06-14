@@ -8,8 +8,18 @@ import java.util.Scanner;
 public class Juser {
     public static final String FILE_PATH = "data/users"; // Ruta del archivo donde se guardarán las passwords
 
-    public static void logIn() {
-        
+    public static void logIn(Scanner scanner) {
+        Jfun.clear();
+        System.out.print("### Iniciar sesion ###\n");
+        System.out.print(">> Ingrese su nombre de usuario:\n>> ");
+        String user = scanner.nextLine();
+        System.out.print(">> Ingrese su password:\n>> ");
+        String password = scanner.nextLine();
+        if (verifUsr(user) && verifPass(user+":"+password)) {
+            Jmenu.mainMenu();
+            return;
+    
+        }
     }
 
     public static void createUser(Scanner scanner) {
@@ -17,7 +27,7 @@ public class Juser {
         System.out.print("### Registrarse ###\n");
         System.out.print(">> Ingrese su nombre de usuario:\n>> ");
         String user = scanner.nextLine();
-        if (verif(user)) {
+        if (verifUsr(user)) {
             Jfun.clear();
             System.out.println(">> El nombre de usuario ya está en uso.\nPresione [ENTER] para continuar.");
             scanner.nextLine();
@@ -38,13 +48,26 @@ public class Juser {
         }
     }
 
-    public static boolean verif(String nombredeusuario) {
+    public static boolean verifUsr(String nombredeusuario) {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] parts = line.split(":");
                 String usuarioexiste = parts[0];
                 if (usuarioexiste.equals(nombredeusuario)) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(">> Error al abrir el archivo: " + e.getMessage());
+        }
+        return false;
+    }  
+    public static boolean verifPass(String contrasena) {
+        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();                
+                if (line.equals(contrasena)) {
                     return true;
                 }
             }

@@ -11,7 +11,7 @@ public class JloginMenu {
             scanner.nextLine();
             switch (option) {
                 case 1:
-                    Juser.logIn();
+                    Juser.logIn(scanner);
                     break;
                 case 2:
                     Juser.createUser(scanner);
