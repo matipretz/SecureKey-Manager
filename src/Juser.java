@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,19 +17,40 @@ public class Juser {
         System.out.print("### Registrarse ###\n");
         System.out.print(">> Ingrese su nombre de usuario:\n>> ");
         String user = scanner.nextLine();
-        System.out.print(">> Ingrese su password:\n>> ");
-        String password = scanner.nextLine();
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) { //Intenta crear un archivo en la ruta establecida y escribirle contenido.
+        if (verif(user)) {
+            Jfun.clear();
+            System.out.println(">> El nombre de usuario ya está en uso.\nPresione [ENTER] para continuar.");
+            scanner.nextLine();
+            return;
+        }
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) {
+            System.out.print(">> Ingrese su password:\n>> ");
+            String password = scanner.nextLine();
             Jfun.clear();
             System.out.println(">> Creando usuario...");
             Jfun.pausa(1500);
-            writer.println(user + ":" + password); //Agrega el contenido en una nueva linea del archivo.
+            writer.println(user + ":" + password);
             System.out.println(">> Usuario creado.\nPresione [ENTER] para continuar.");
-            scanner.nextLine(); // Consume la siguiente linea del scanner.
+            scanner.nextLine();
         } catch (IOException e) {
             Jfun.pausa(500);
-            System.out.println(">> Error al crear o guardar usuario: " + e.getMessage());
+            System.out.println(">> Error al crear usuario: " + e.getMessage());
         }
-    }   
-}
+    }
 
+    public static boolean verif(String nombredeusuario) {
+        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(":");
+                String usuarioexiste = parts[0];
+                if (usuarioexiste.equals(nombredeusuario)) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(">> Error al abrir el archivo: " + e.getMessage());
+        }
+        return false;
+    }  
+}
