@@ -13,7 +13,7 @@ public class Jfun {
             }
         }
     }
-    public static void welcome() { // Mensaje de bienvenida.
+    public static void loading() { // Mensaje de bienvenida.
         clear();
         System.out.print("###\nSecureKey Manager 0.2\nCaC 4.0-23438-2023 SEM1\nAlumno: Matías Martín Murad Pretz\n33.366.158\nDocente: Gonzalo F. Rubé\nTutora: Zoraida Flores\n###\n");
         pausa(2000);
