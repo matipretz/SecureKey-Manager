@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -47,12 +48,16 @@ public class Juser {
     }
 
     public static void logIn(Scanner scanner) {
+        Console console = System.console();
+
         Jfun.clear();
         System.out.print("### Iniciar sesion ###\n");
         System.out.print(">> Ingrese su nombre de usuario:\n>> ");
         String user = scanner.nextLine();
-        System.out.print(">> Ingrese su password:\n>> ");
-        String password = scanner.nextLine();
+        char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
+        String password = new String(passwordArray);
+
+        
         if (verifUsr(user) && verifPass(user+":"+password)) {
             Jfun.clear();
             System.out.println(">> Bienvenido " + user + ".");
