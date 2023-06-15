@@ -20,14 +20,14 @@ public class Jcrud {
         String password = scanner.nextLine();
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) { //Intenta crear un archivo en la ruta establecida y escribirle contenido.
             Jfun.clear();
-            System.out.println(">> Creando password " + name + ".");
+            System.out.println(">> Creando password.");
             Jfun.pausa(500);
             writer.println(name + ":" + password); //Agrega el contenido en una nueva linea del archivo.
             System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine(); // Consume la siguiente linea del scanner.
-        } catch (IOException e) {
-            Jfun.pausa(500);
+        } catch (IOException e) {            
             System.out.println(">> Error al crear o guardar la password: " + e.getMessage());
+            Jfun.pausa(1500);
         }
     }
     public static void listPasswords() {
@@ -40,22 +40,23 @@ public class Jcrud {
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
-            Jfun.pausa(2000);            
+            Jfun.pausa(1500);            
             Jmenu.mainMenu();
         }
     }
     public static void readPassword(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Leer passwords ###\n");
-        listPasswords();        
+        listPasswords();   
+        System.out.print(">> Ingrese el nombre de la password: ");
+        String name = scanner.nextLine(); // Toma el dato buscado por el usuario.     
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { // Mientras tenga otra linea de datos.
                 String line = fileScanner.nextLine(); // Crea un string para la linea.                
                 String[] parts = line.split(":"); // Divide la linea por un separador.
                 String passwordName = parts[0]; // Crea un string para la primera parte de la linea.
                 String password = parts[1]; // Crea un string para la segunda parte de la linea.
-                System.out.print(">> Ingrese el nombre de la password: ");
-                String name = scanner.nextLine(); // Toma el dato buscado por el usuario.                
+                                
                 if (passwordName.equals(name)) { // Si la primera parte de la linea coincide con el dato ingresado:
                     System.out.println(">> Password: " + password+"\n>> Presione [ENTER] para continuar."); // Muestra la segunda parte de la linea.
                     scanner.nextLine(); // Consume la siguiente linea del scanner.
@@ -63,9 +64,12 @@ public class Jcrud {
                 }
             }
             System.out.println(">> No se encuentran passwords guardadas.");
-            Jfun.pausa(1500);
+            Jfun.pausa(1500);            
+            Jmenu.mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
+            Jfun.pausa(1500);            
+            Jmenu.mainMenu();
         }
     }
     public static void updatePassword(Scanner scanner) {
@@ -89,6 +93,8 @@ public class Jcrud {
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error: " + e);
+            Jfun.pausa(1500);            
+            Jmenu.mainMenu();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
@@ -99,6 +105,8 @@ public class Jcrud {
             scanner.nextLine(); // Consume la siguiente linea del scanner.
         } catch (IOException e) {
             System.out.println(">> Error al editar la password: " + e.getMessage());
+            Jfun.pausa(1500);            
+            Jmenu.mainMenu();
         }
     }
     public static void deletePassword(Scanner scanner) {
@@ -119,6 +127,8 @@ public class Jcrud {
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
+            Jfun.pausa(1500);            
+            Jmenu.mainMenu();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) { //Intenta crear un archivo en modo escritura en la ruta establecida para:
@@ -129,6 +139,8 @@ public class Jcrud {
             scanner.nextLine(); // Consume la siguiente linea del scanner.
         } catch (IOException e) {
             System.out.println(">> Error al borrar la password: " + e.getMessage());
+            Jfun.pausa(1500);            
+            Jmenu.mainMenu();
         }
     }
 }
