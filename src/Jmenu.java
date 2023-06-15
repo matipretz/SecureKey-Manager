@@ -4,7 +4,7 @@ public class Jmenu {
     public static void mainMenu() {
         while (true) {
             Jfun.clear();
-            System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords2.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Salir.\n>");
+            System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -26,12 +26,12 @@ public class Jmenu {
                     break;
                 case 6:
                     Jfun.clear();
-                    System.out.print("Cerrando sesion...");
+                    System.out.print(">> Cerrando sesion...");
                     Jfun.pausa(1500);
                     Jfun.clear();
                     JloginMenu.loginMenu();
                 default:
-                    System.out.print("Opción no válida. Vuelva a intentarlo.");
+                    System.out.print(">> Opción no válida. Vuelva a intentarlo.");
                     break;
             }
         }        

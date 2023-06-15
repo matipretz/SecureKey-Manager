@@ -8,20 +8,6 @@ import java.util.Scanner;
 public class Juser {
     public static final String FILE_PATH = "data/users"; // Ruta del archivo donde se guardarán las passwords
 
-    public static void logIn(Scanner scanner) {
-        Jfun.clear();
-        System.out.print("### Iniciar sesion ###\n");
-        System.out.print(">> Ingrese su nombre de usuario:\n>> ");
-        String user = scanner.nextLine();
-        System.out.print(">> Ingrese su password:\n>> ");
-        String password = scanner.nextLine();
-        if (verifUsr(user) && verifPass(user+":"+password)) {
-            Jmenu.mainMenu();
-            return;
-    
-        }
-    }
-
     public static void createUser(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Registrarse ###\n");
@@ -48,6 +34,22 @@ public class Juser {
         }
     }
 
+    public static void logIn(Scanner scanner) {
+        Jfun.clear();
+        System.out.print("### Iniciar sesion ###\n");
+        System.out.print(">> Ingrese su nombre de usuario:\n>> ");
+        String user = scanner.nextLine();
+        System.out.print(">> Ingrese su password:\n>> ");
+        String password = scanner.nextLine();
+        if (verifUsr(user) && verifPass(user+":"+password)) {
+            Jfun.clear();
+            System.out.println(">> Bienvenido " + user + ".");
+            setNombre(user);
+            Jfun.pausa(2000);
+            Jmenu.mainMenu();
+            return;    
+        }
+    }
     public static boolean verifUsr(String nombredeusuario) {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
             while (fileScanner.hasNextLine()) {
@@ -76,4 +78,18 @@ public class Juser {
         }
         return false;
     }  
+
+    static String nombre;
+    Juser(String nombre){
+        Juser.nombre = nombre;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+    public static void setNombre(String nombre){
+        Juser.nombre = nombre;
+    }
+
+
 }

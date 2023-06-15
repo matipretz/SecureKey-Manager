@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Jcrud {
-    public static final String FILE_PATH = "data/register"; // Ruta del archivo donde se guardarán las passwords
+    public static final String FILE_PATH = "data/" + Juser.nombre; // Ruta del archivo donde se guardarán las passwords
+
 
     public static void createPassword(Scanner scanner) {
         Jfun.clear();
@@ -19,10 +20,10 @@ public class Jcrud {
         String password = scanner.nextLine();
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) { //Intenta crear un archivo en la ruta establecida y escribirle contenido.
             Jfun.clear();
-            System.out.println(">> Creando archivo " + name + ".");
+            System.out.println(">> Creando password " + name + ".");
             Jfun.pausa(500);
             writer.println(name + ":" + password); //Agrega el contenido en una nueva linea del archivo.
-            System.out.println(">> password creada y guardada correctamente.\nPresione [ENTER] para continuar.");
+            System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine(); // Consume la siguiente linea del scanner.
         } catch (IOException e) {
             Jfun.pausa(500);
@@ -39,27 +40,30 @@ public class Jcrud {
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
+            Jfun.pausa(2000);            
+            Jmenu.mainMenu();
         }
     }
     public static void readPassword(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Leer passwords ###\n");
-        listPasswords();
-        System.out.print(">> Ingrese el nombre de la password: ");
-        String name = scanner.nextLine(); // Toma el dato buscado por el usuario.
+        listPasswords();        
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { // Mientras tenga otra linea de datos.
-                String line = fileScanner.nextLine(); // Crea un string para la linea.
+                String line = fileScanner.nextLine(); // Crea un string para la linea.                
                 String[] parts = line.split(":"); // Divide la linea por un separador.
                 String passwordName = parts[0]; // Crea un string para la primera parte de la linea.
                 String password = parts[1]; // Crea un string para la segunda parte de la linea.
+                System.out.print(">> Ingrese el nombre de la password: ");
+                String name = scanner.nextLine(); // Toma el dato buscado por el usuario.                
                 if (passwordName.equals(name)) { // Si la primera parte de la linea coincide con el dato ingresado:
-                    System.out.println(">> Password: " + password+"\nPresione [ENTER] para continuar."); // Muestra la segunda parte de la linea.
+                    System.out.println(">> Password: " + password+"\n>> Presione [ENTER] para continuar."); // Muestra la segunda parte de la linea.
                     scanner.nextLine(); // Consume la siguiente linea del scanner.
                     return;
                 }
             }
-            System.out.println(">> La password no existe.");
+            System.out.println(">> No se encuentran passwords guardadas.");
+            Jfun.pausa(1500);
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
         }
