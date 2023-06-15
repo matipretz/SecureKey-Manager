@@ -30,28 +30,4 @@ public class Jfun {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
-
-public static void cursor() {
-    Thread cursorThread = new Thread(() -> {
-            boolean showCursor = true;
-            while (true) {
-                try {
-                    Thread.sleep(500); // Pausa de 500 milisegundos
-                    if (showCursor) {
-                        System.out.print("\b");
-                    } else {
-                        System.out.print("_");
-                    }
-                    showCursor = !showCursor;
-                    System.out.flush();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
-            }
-        });
-        cursorThread.start();
-    
-}
 }
