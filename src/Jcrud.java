@@ -36,7 +36,8 @@ public class Jcrud {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { //Recorre el registro.
                 String line = fileScanner.nextLine(); // Linea por linea.
-                System.out.println(line.split(":")[0]); //Dividir la linea por su separador e imprimir la primera parte.
+                String decripted = Jcypher.decrypt(line);
+                System.out.println(decripted.split(":")[0]); //Dividir la linea por su separador e imprimir la primera parte.
                 Jfun.pausa(50);
             }
         } catch (FileNotFoundException e) {
@@ -53,8 +54,10 @@ public class Jcrud {
         String name = scanner.nextLine(); // Toma el dato buscado por el usuario.     
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { // Mientras tenga otra linea de datos.
-                String line = fileScanner.nextLine(); // Crea un string para la linea.                
-                String[] parts = line.split(":"); // Divide la linea por un separador.
+                String line = fileScanner.nextLine(); // Crea un string para la linea.
+                String decripted = Jcypher.decrypt(line);
+                
+                String[] parts = decripted.split(":"); // Divide la linea por un separador.
                 String passwordName = parts[0]; // Crea un string para la primera parte de la linea.
                 String password = parts[1]; // Crea un string para la segunda parte de la linea.
                                 

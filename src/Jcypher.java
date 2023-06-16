@@ -28,7 +28,7 @@ public class Jcypher {
         }
     }
     
-    private static String decrypt(String encryptedText) {
+    static String decrypt(String encryptedText) {
         try {
             SecretKey aesKey = new SecretKeySpec(ENCRYPT_KEY.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
