@@ -10,23 +10,30 @@ import java.util.Scanner;
 public class Jcrud {
     public static final String FILE_PATH = "data/" + Juser.nombre; // Ruta del archivo donde se guardarán las passwords
 
-
     public static void createPassword(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Crear passwords ###\n");
         System.out.print(">> Ingrese un nombre para la password:\n>> ");
         String name = scanner.nextLine();
+        while (name.trim().isEmpty()) { // Validar que el campo name no esté vacío
+            System.out.print(">> El nombre no puede estar vacío. Ingrese un nombre para la password:\n>> ");
+            name = scanner.nextLine();
+        }
         System.out.print(">> Ingrese la password:\n>> ");
         String password = scanner.nextLine();
-        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) { //Intenta crear un archivo en la ruta establecida y escribirle contenido.
+        while (password.trim().isEmpty()) { // Validar que el campo password no esté vacío
+            System.out.print(">> La password no puede estar vacía. Ingrese la password:\n>> ");
+            password = scanner.nextLine();
+        }
+        try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH, true))) {
             Jfun.clear();
             System.out.println(">> Creando password.");
             Jfun.pausa(500);
             String encripted = Jfun.encrypt(name + ":" + password);
-            writer.println(encripted); //Agrega el contenido en una nueva linea del archivo.
+            writer.println(encripted);
             System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
-            scanner.nextLine(); // Consume la siguiente linea del scanner.
-        } catch (IOException e) {            
+            scanner.nextLine();
+        } catch (IOException e) {
             System.out.println(">> Error al crear o guardar la password: " + e.getMessage());
             Jfun.pausa(1500);
         }
