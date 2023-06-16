@@ -26,7 +26,7 @@ public class Juser {
         System.out.print("### Registrarse ###\n");
         System.out.print(">> Ingrese su nombre de usuario:\n>> ");
         String user = scanner.nextLine();
-        if (verifUsr(user)) {
+        if (verificarCredenciales(user, null)) {
             Jfun.clear();
             System.out.println(">> El nombre de usuario ya está en uso.\nPresione [ENTER] para continuar.");
             scanner.nextLine();
@@ -40,7 +40,7 @@ public class Juser {
             Jfun.pausa(1500);
             writer.println(user + ":" + password);
             System.out.println(">> Usuario creado.\nPresione [ENTER] para continuar.");
-            scanner.nextLine();
+            Jmenus.mainMenu();
         } catch (IOException e) {
             Jfun.pausa(500);
             System.out.println(">> Error al crear usuario: " + e.getMessage());
@@ -56,47 +56,35 @@ public class Juser {
         String user = scanner.nextLine();
         char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
         String password = new String(passwordArray);
-
-        
-        if (verifUsr(user) && verifPass(user+":"+password)) {
+        if (verificarCredenciales(user, password)) {
             Jfun.clear();
-            System.out.println(">> Bienvenido " + user + ".");
+            System.out.println(">> Hola " + user + ".");
             setNombre(user);
-            Jfun.pausa(2000);
+            Jfun.pausa(1000);
             Jmenus.mainMenu();
             return;    
         }
     }
-    public static boolean verifUsr(String nombredeusuario) {
+    public static boolean verificarCredenciales(String nombredeusuario, String contrasena) {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
             while (fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine();
                 String[] parts = line.split(":");
-                String usuarioexiste = parts[0];
-                if (usuarioexiste.equals(nombredeusuario)) {
-                    return true;
+                String usuarioExiste = parts[0];
+                String contrasenaGuardada = parts[1];
+                
+                if (nombredeusuario != null && usuarioExiste.equals(nombredeusuario)) {
+                    return true;  // Verificar solo el nombre de usuario
+                }
+                
+                if (contrasena != null && contrasenaGuardada.equals(contrasena)) {
+                    return true;  // Verificar solo la contraseña
                 }
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> Error al abrir el archivo: " + e.getMessage());
         }
         return false;
-    }  
-    public static boolean verifPass(String contrasena) {
-        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();                
-                if (line.equals(contrasena)) {
-                    return true;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(">> Error al abrir el archivo: " + e.getMessage());
-        }
-        return false;
-    }  
-
-
-
+    }
 
 }

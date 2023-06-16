@@ -4,7 +4,10 @@ public class Jmenus {
     public static void mainMenu() {
         while (true) {
             Jfun.clear();
-            System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>>");
+            System.out.println("Cargando...");
+            Jfun.pausa(500);
+            Jfun.clear();
+            System.out.print("### SecureKey Manager 0.2 ###         " + Juser.nombre + "\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>>");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
             scanner.nextLine();
