@@ -16,8 +16,14 @@ public class Jcrud {
         System.out.print(">> Ingrese un nombre para la password:\n>> ");
         String name = scanner.nextLine();
         while (name.trim().isEmpty()) { // Validar que el campo name no esté vacío
-            System.out.print(">> El nombre no puede estar vacío. Ingrese un nombre para la password:\n>> ");
+            Jfun.clear();
+            System.out.print(">> El nombre no puede estar vacío.\nIngrese un nombre para la password:\n>> ");
             name = scanner.nextLine();
+        }
+        while (Jfun.verificar(name, null,FILE_PATH)) {
+            Jfun.clear();
+            System.out.print(">> El nombre de usuario ya está en uso.\nIngrese un nombre para la password:\n>> ");
+            name = scanner.nextLine();        
         }
         System.out.print(">> Ingrese la password:\n>> ");
         String password = scanner.nextLine();
@@ -74,8 +80,8 @@ public class Jcrud {
                     return;
                 }
             }
-            System.out.println(">> No se encuentran passwords guardadas.");
-            Jfun.pausa(1500);            
+            System.out.println(">> No se encuentran passwords guardadas.\n>> Presione [ENTER] para continuar.");
+            scanner.nextLine();           
             Jmenus.mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);

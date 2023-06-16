@@ -1,7 +1,10 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Scanner;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -80,6 +83,27 @@ public class Jfun {
             System.out.println("Error al descifrar la contraseña: " + e.getMessage());
             return null;
         }
+    }
+    public static boolean verificar(String llave, String valor, String FILE_PATH) { // Verifica que la llave y/o el valor en FILE_PATH existan y no sean null.
+        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(":");
+                String llaveExiste = parts[0];
+                String valorExiste = parts[1];                
+                if (llave != null && llaveExiste.equals(llave)) {
+                    return true;
+                }                
+                if (valor != null && valorExiste.equals(valor)) {
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(">> Error al abrir el archivo: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println(">> Error al cerrar el Scanner: " + e.getMessage());
+        }        
+        return false;
     }
 
 }
