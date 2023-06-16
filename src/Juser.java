@@ -63,7 +63,7 @@ public class Juser {
             System.out.println(">> Bienvenido " + user + ".");
             setNombre(user);
             Jfun.pausa(2000);
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
             return;    
         }
     }

@@ -22,7 +22,7 @@ public class Jcrud {
             Jfun.clear();
             System.out.println(">> Creando password.");
             Jfun.pausa(500);
-            String encripted = Jcypher.encrypt(name + ":" + password);
+            String encripted = Jfun.encrypt(name + ":" + password);
             writer.println(encripted); //Agrega el contenido en una nueva linea del archivo.
             System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine(); // Consume la siguiente linea del scanner.
@@ -36,14 +36,14 @@ public class Jcrud {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { //Recorre el registro.
                 String line = fileScanner.nextLine(); // Linea por linea.
-                String decripted = Jcypher.decrypt(line);
+                String decripted = Jfun.decrypt(line);
                 System.out.println(decripted.split(":")[0]); //Dividir la linea por su separador e imprimir la primera parte.
                 Jfun.pausa(50);
             }
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
         }
     }
     public static void readPassword(Scanner scanner) {
@@ -55,7 +55,7 @@ public class Jcrud {
         try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) { // Intenta crear un archivo tomando los datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { // Mientras tenga otra linea de datos.
                 String line = fileScanner.nextLine(); // Crea un string para la linea.
-                String decripted = Jcypher.decrypt(line);
+                String decripted = Jfun.decrypt(line);
                 
                 String[] parts = decripted.split(":"); // Divide la linea por un separador.
                 String passwordName = parts[0]; // Crea un string para la primera parte de la linea.
@@ -69,11 +69,11 @@ public class Jcrud {
             }
             System.out.println(">> No se encuentran passwords guardadas.");
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
         }
     }
     public static void updatePassword(Scanner scanner) {
@@ -98,7 +98,7 @@ public class Jcrud {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error: " + e);
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) {
@@ -110,7 +110,7 @@ public class Jcrud {
         } catch (IOException e) {
             System.out.println(">> Error al editar la password: " + e.getMessage());
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
         }
     }
     public static void deletePassword(Scanner scanner) {
@@ -132,7 +132,7 @@ public class Jcrud {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) { //Intenta crear un archivo en modo escritura en la ruta establecida para:
@@ -144,7 +144,7 @@ public class Jcrud {
         } catch (IOException e) {
             System.out.println(">> Error al borrar la password: " + e.getMessage());
             Jfun.pausa(1500);            
-            Jmenu.mainMenu();
+            Jmenus.mainMenu();
         }
     }
 }
