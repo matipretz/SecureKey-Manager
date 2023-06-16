@@ -22,7 +22,8 @@ public class Jcrud {
             Jfun.clear();
             System.out.println(">> Creando password.");
             Jfun.pausa(500);
-            writer.println(name + ":" + password); //Agrega el contenido en una nueva linea del archivo.
+            String encripted = Jcypher.encrypt(name + ":" + password);
+            writer.println(encripted); //Agrega el contenido en una nueva linea del archivo.
             System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine(); // Consume la siguiente linea del scanner.
         } catch (IOException e) {            

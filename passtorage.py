@@ -120,7 +120,7 @@ while True:#MAIN MENU#
         except ValueError:
             invalid()
             continue    
-        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789¡!¿?@#$%&=+-*/'
+        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
         mylength = length
         password = ''.join(random.choice(chars) for _ in range(length))
         print(dots())       
