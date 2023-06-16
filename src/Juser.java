@@ -10,17 +10,25 @@ public class Juser {
     public static final String FILE_PATH = "data/users"; // Ruta del archivo donde se guardarán las passwords
     
     static String nombre;
+    static String contrasena;
+
     
-    Juser(String nombre){
+    Juser(String nombre, String contrasena){
     Juser.nombre = nombre;
+    Juser.contrasena = contrasena;
     }
     public String getNombre(){
         return nombre;
     }
     public static void setNombre(String nombre){
         Juser.nombre = nombre;
+    }    
+    public String getContrasena(){
+        return contrasena;
     }
-
+    public static void setContrasena(String contrasena){
+        Juser.contrasena = contrasena;
+    }
     public static void createUser(Scanner scanner) {
         Jfun.clear();
         System.out.print("### Registrarse ###\n");
@@ -60,6 +68,7 @@ public class Juser {
             Jfun.clear();
             System.out.println(">> Hola " + user + ".");
             setNombre(user);
+            setContrasena(password);
             Jfun.pausa(1000);
             Jmenus.mainMenu();
             return;    

@@ -41,7 +41,19 @@ public class Jfun {
         System.out.flush();
     }
 
-    private static final String ENCRYPT_KEY = "Aguo33SH08pPnH7hNUWexZY8ySPWPCIR";
+    private static String ajustar(String input) {
+        int desiredLength = 32;
+        if (input.length() < desiredLength) { // Agregar caracteres al final.
+            while (input.length() < desiredLength) {
+                input += "@";
+            }
+        } 
+        else if (input.length() > desiredLength) {  // Cortar caracteres al final.
+            input = input.substring(0, desiredLength);
+        }
+        return input;
+    }
+    private static final String ENCRYPT_KEY = (ajustar(Juser.nombre + Juser.contrasena));
 
     static String encrypt(String text) {
         try {
