@@ -1,69 +1,71 @@
 import java.util.Scanner;
 
-
-public class Menus {    
-    public static void loginMenu() {
+public class Menus {
+    public static void logueoMenu() {
         while (true) {
-            Toys.clear();
-            System.out.print("### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Iniciar sesion.\n2. Registrarse.\n3. Salir.\n>>");
+            Varios.clear();
+            System.out.print(
+                    "### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Iniciar sesion.\n2. Registrarse.\n3. Salir.\n>>");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
                 case 1:
-                    CRUD.logIn(scanner);
+                    Usuario.ingresar(scanner);
                     break;
                 case 2:
-                    CRUD.crear(scanner);
+                    Usuario.registrarse(scanner);
                     break;
                 case 3:
-                    Toys.clear();
+                    Varios.clear();
                     System.out.print(">> Saliendo...");
-                    Toys.pausa(1500);
-                    Toys.clear();
+                    Varios.pausa(1500);
+                    Varios.clear();
                     System.exit(0);
                 default:
                     System.out.print(">> Opción no válida. Vuelva a intentarlo.");
                     break;
             }
-        }        
+        }
     }
-    public static void mainMenu() {
+
+    public static void menuPrincipal() {
         while (true) {
-            Toys.clear();
+            Varios.clear();
             System.out.println("Cargando...");
-            Toys.pausa(500);
-            Toys.clear();
-            System.out.print("### SecureKey Manager 0.2 ###         " + CRUD.llave + "\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>>");
+            Varios.pausa(500);
+            Varios.clear();
+            System.out.print("### SecureKey Manager 0.2 ###         " + Usuario.llave
+                    + "\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>>");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
                 case 1:
-                    Guns.createPassword(scanner);
+                    CLAB.createPassword(scanner);
                     break;
                 case 2:
-                    Guns.readPassword(scanner);
+                    CLAB.readPassword(scanner);
                     break;
                 case 3:
-                    Guns.updatePassword(scanner);
+                    CLAB.updatePassword(scanner);
                     break;
                 case 4:
-                    Guns.deletePassword(scanner);
+                    CLAB.deletePassword(scanner);
                     break;
                 case 5:
-                    Settings.accountSettings();
+                    Usuario.accountSettings();
                     break;
                 case 6:
-                    Toys.clear();
+                    Varios.clear();
                     System.out.print(">> Cerrando sesion...");
-                    Toys.pausa(1500);
-                    Toys.clear();
-                    loginMenu();
+                    Varios.pausa(1500);
+                    Varios.clear();
+                    logueoMenu();
                 default:
                     System.out.print(">> Opción no válida. Vuelva a intentarlo.");
                     break;
             }
-        }        
+        }
     }
 }
