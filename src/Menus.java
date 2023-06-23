@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class Menus {
-    public static void logueoMenu() {
+    public static void logueo() {
         while (true) {
-            Varios.clear();
+            Varios.limpiar();
             System.out.print(
                     "### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Iniciar sesion.\n2. Registrarse.\n3. Salir.\n>>");
             Scanner scanner = new Scanner(System.in);
@@ -17,10 +17,10 @@ public class Menus {
                     Usuario.registrarse(scanner);
                     break;
                 case 3:
-                    Varios.clear();
+                    Varios.limpiar();
                     System.out.print(">> Saliendo...");
                     Varios.pausa(1500);
-                    Varios.clear();
+                    Varios.limpiar();
                     System.exit(0);
                 default:
                     System.out.print(">> Opción no válida. Vuelva a intentarlo.");
@@ -29,12 +29,12 @@ public class Menus {
         }
     }
 
-    public static void menuPrincipal() {
+    public static void principal() {
         while (true) {
-            Varios.clear();
+            Varios.limpiar();
             System.out.println("Cargando...");
             Varios.pausa(500);
-            Varios.clear();
+            Varios.limpiar();
             System.out.print("### SecureKey Manager 0.2 ###         " + Usuario.llave
                     + "\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>>");
             Scanner scanner = new Scanner(System.in);
@@ -42,26 +42,26 @@ public class Menus {
             scanner.nextLine();
             switch (option) {
                 case 1:
-                    CLAB.createPassword(scanner);
+                    CLAB.crear(scanner);
                     break;
                 case 2:
-                    CLAB.readPassword(scanner);
+                    CLAB.leer(scanner);
                     break;
                 case 3:
-                    CLAB.updatePassword(scanner);
+                    CLAB.actualizar(scanner);
                     break;
                 case 4:
-                    CLAB.deletePassword(scanner);
+                    CLAB.borrar(scanner);
                     break;
                 case 5:
-                    Usuario.accountSettings();
+                    Usuario.cuenta();
                     break;
                 case 6:
-                    Varios.clear();
+                    Varios.limpiar();
                     System.out.print(">> Cerrando sesion...");
                     Varios.pausa(1500);
-                    Varios.clear();
-                    logueoMenu();
+                    Varios.limpiar();
+                    logueo();
                 default:
                     System.out.print(">> Opción no válida. Vuelva a intentarlo.");
                     break;

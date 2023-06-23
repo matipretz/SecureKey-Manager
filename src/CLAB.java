@@ -10,18 +10,18 @@ import java.util.Scanner;
 class CLAB {
     static final String FILE_PATH = "data/" + Usuario.llave; // Ruta del archivo donde se guardarán las passwords
 
-    static void createPassword(Scanner scanner) {
-        Varios.clear();
+    static void crear(Scanner scanner) {
+        Varios.limpiar();
         System.out.print("### Crear passwords ###\n");
         System.out.print(">> Ingrese un nombre para la password:\n>> ");
         String name = scanner.nextLine();
         while (name.trim().isEmpty()) { // Validar que el campo name no esté vacio
-            Varios.clear();
+            Varios.limpiar();
             System.out.print(">> El nombre no puede estar vacio.\nIngrese un nombre para la password:\n>> ");
             name = scanner.nextLine();
         }
         while (Varios.verificar(name, null, CLAB.FILE_PATH)) {
-            Varios.clear();
+            Varios.limpiar();
             System.out.print(">> El nombre de usuario ya está en uso.\nIngrese un nombre para la password:\n>> ");
             name = scanner.nextLine();
         }
@@ -32,10 +32,10 @@ class CLAB {
             password = scanner.nextLine();
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(CLAB.FILE_PATH, true))) {
-            Varios.clear();
+            Varios.limpiar();
             System.out.println(">> Creando password.");
             Varios.pausa(500);
-            String encripted = Varios.encrypt(name + ":" + password);
+            String encripted = Varios.encriptar(name + ":" + password);
             writer.println(encripted);
             System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine();
@@ -45,13 +45,13 @@ class CLAB {
         }
     }
 
-    static void listPasswords() {
+    static void listar() {
         Varios.pausa(500);
         try (Scanner fileScanner = new Scanner(new File(CLAB.FILE_PATH))) { // Intenta crear un archivo tomando los
                                                                             // datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { // Recorre el registro.
                 String line = fileScanner.nextLine(); // Linea por linea.
-                String decripted = Varios.decrypt(line);
+                String decripted = Varios.desencriptar(line);
                 System.out.println(decripted.split(":")[0]); // Dividir la linea por su separador e imprimir la primera
                                                              // parte.
                 Varios.pausa(50);
@@ -59,21 +59,21 @@ class CLAB {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Varios.pausa(1500);
-            Menus.menuPrincipal();
+            Menus.principal();
         }
     }
 
-    static void readPassword(Scanner scanner) {
-        Varios.clear();
+    static void leer(Scanner scanner) {
+        Varios.limpiar();
         System.out.print("### Leer passwords ###\n");
-        listPasswords();
+        listar();
         System.out.print(">> Ingrese el nombre de la password: ");
         String name = scanner.nextLine(); // Toma el dato buscado por el usuario.
         try (Scanner fileScanner = new Scanner(new File(CLAB.FILE_PATH))) { // Intenta crear un archivo tomando los
                                                                             // datos de la ruta especificada para:
             while (fileScanner.hasNextLine()) { // Mientras tenga otra linea de datos.
                 String line = fileScanner.nextLine(); // Crea un string para la linea.
-                String decripted = Varios.decrypt(line);
+                String decripted = Varios.desencriptar(line);
 
                 String[] parts = decripted.split(":"); // Divide la linea por un separador.
                 String passwordName = parts[0]; // Crea un string para la primera parte de la linea.
@@ -92,18 +92,18 @@ class CLAB {
             }
             System.out.println(">> No se encuentran passwords guardadas.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine();
-            Menus.menuPrincipal();
+            Menus.principal();
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Varios.pausa(1500);
-            Menus.menuPrincipal();
+            Menus.principal();
         }
     }
 
-    static void updatePassword(Scanner scanner) {
-        Varios.clear();
+    static void actualizar(Scanner scanner) {
+        Varios.limpiar();
         System.out.print("### Editar passwords ###\n");
-        listPasswords();
+        listar();
         System.out.print(">> Ingrese el nombre de la password a editar: ");
         String name = scanner.nextLine(); // Toma el dato buscado por el usuario.
         List<String> lines = new ArrayList<>(); // Crea una lista.
@@ -124,7 +124,7 @@ class CLAB {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error: " + e);
             Varios.pausa(1500);
-            Menus.menuPrincipal();
+            Menus.principal();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(CLAB.FILE_PATH))) {
@@ -144,10 +144,10 @@ class CLAB {
         }
     }
 
-    static void deletePassword(Scanner scanner) {
-        Varios.clear();
+    static void borrar(Scanner scanner) {
+        Varios.limpiar();
         System.out.print("### Borrar passwords ###\n");
-        listPasswords();
+        listar();
         System.out.print(">> Ingrese el nombre de la password a borrar: ");
         String name = scanner.nextLine(); // Toma el dato buscado por el usuario.
         List<String> lines = new ArrayList<>(); // Crea una lista.
@@ -164,7 +164,7 @@ class CLAB {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Varios.pausa(1500);
-            Menus.menuPrincipal();
+            Menus.principal();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) { // Intenta crear un archivo en modo
@@ -179,7 +179,7 @@ class CLAB {
         } catch (IOException e) {
             System.out.println(">> Error al borrar la password: " + e.getMessage());
             Varios.pausa(1500);
-            Menus.menuPrincipal();
+            Menus.principal();
         }
     }
 }

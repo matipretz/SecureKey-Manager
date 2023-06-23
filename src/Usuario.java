@@ -37,7 +37,7 @@ public class Usuario {
             llave = scanner.nextLine();
         }
         while (Varios.verificar(llave, null, PATH)) {
-            Varios.clear();
+            Varios.limpiar();
             System.out.print(">> El nombre de usuario ya está en uso.\n>> Ingrese su nombre de usuario:\n>> ");
             llave = scanner.nextLine();
         }
@@ -51,7 +51,7 @@ public class Usuario {
             setLlave(llave);
             setValor(valor);
             writer.println(llave + ":" + valor);
-            Menus.menuPrincipal();
+            Menus.principal();
         } catch (IOException e) {
             Varios.pausa(500);
             System.out.println(">> Error al crear usuario: " + e.getMessage());
@@ -60,24 +60,24 @@ public class Usuario {
 
     static void ingresar(Scanner scanner) {
         Console console = System.console();
-        Varios.clear();
+        Varios.limpiar();
         System.out.print("### Iniciar sesion ###\n");
         System.out.print(">> Ingrese su nombre de usuario:\n>> ");
         String user = scanner.nextLine();
         char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
         String password = new String(passwordArray);
         if (Varios.verificar(user, password, PATH)) {
-            Varios.clear();
+            Varios.limpiar();
             System.out.println(">> Hola " + user + ".");
             setLlave(user);
             setValor(password);
             Varios.pausa(1000);
-            Menus.menuPrincipal();
+            Menus.principal();
             return;
         }
     }
 
-    static void accountSettings() {
+    static void cuenta() {
 
     }
 }

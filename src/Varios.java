@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.management.openmbean.InvalidKeyException;
 
 class Varios {
-    static void chkDirs() { // Verifica la existencia de la ruta necesaria y la crea si falta.
+    static void verificarDirectorios() { // Verifica la existencia de la ruta necesaria y la crea si falta.
         String directory = "data";
         File file = new File(directory);
         if (!file.exists()) {
@@ -24,12 +24,12 @@ class Varios {
         }
     }
 
-    static void loading() { // Mensaje de bienvenida.
-        clear();
+    static void mensaje() { // Mensaje de bienvenida.
+        limpiar();
         System.out.print(
                 "###\nSecureKey Manager 0.2\nCaC 4.0-23438-2023 SEM1\nAlumno: Matías Martín Murad Pretz\n33.366.158\nDocente: Gonzalo F. Rubé\nTutora: Zoraida Flores\n###\n");
         pausa(2000);
-        clear();
+        limpiar();
     }
 
     static void pausa(int ms) { // Pausa la ejecucion durante x milisegundos.
@@ -40,7 +40,7 @@ class Varios {
         }
     }
 
-    static void clear() { // Limpia la consola.
+    static void limpiar() { // Limpia la consola.
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -59,7 +59,7 @@ class Varios {
 
     static String ENCRYPT_KEY = (ajustar(Usuario.llave + Usuario.valor));
 
-    static String encrypt(String text) {
+    static String encriptar(String text) {
         try {
             SecretKey aesKey = new SecretKeySpec(ENCRYPT_KEY.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -73,7 +73,7 @@ class Varios {
         }
     }
 
-    static String decrypt(String encryptedText) {
+    static String desencriptar(String encryptedText) {
         try {
             SecretKey aesKey = new SecretKeySpec(ENCRYPT_KEY.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
