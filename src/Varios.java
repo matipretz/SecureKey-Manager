@@ -1,9 +1,11 @@
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Scanner;
+import java.util.List;
+//import java.util.Scanner;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -13,6 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.management.openmbean.InvalidKeyException;
 
 class Varios {
+    
     static void verificarDirectorios() { // Verifica la existencia de la ruta necesaria y la crea si falta.
         String directory = "data";
         File file = new File(directory);
@@ -57,7 +60,7 @@ class Varios {
         return input;
     }
 
-    static String ENCRYPT_KEY = (ajustar(Usuario.llave + Usuario.valor));
+    static String ENCRYPT_KEY = (ajustar(Usuario.nombreUsuario + Usuario.contrasenaUsuario));
 
     static String encriptar(String text) {
         try {
@@ -88,27 +91,30 @@ class Varios {
         }
     }
 
-    static boolean verificar(String llave, String valor, String FILE_PATH) { // Verifica que la llave y/o el valor en
-                                                                             // FILE_PATH existan y no sean null.
-        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                String[] parts = line.split(":");
-                String llaveExiste = parts[0];
-                String valorExiste = parts[1];
-                if (llave != null && llaveExiste.equals(llave)) {
-                    return true;
-                }
-                if (valor != null && valorExiste.equals(valor)) {
-                    return true;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(">> Error al abrir el archivo: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println(">> Error al cerrar el Scanner: " + e.getMessage());
-        }
-        return false;
-    }
+    /*
+     * static boolean verificar(String llave, String valor, String FILE_PATH) { //
+     * Verifica que la llave y/o el valor en
+     * // FILE_PATH existan y no sean null.
+     * try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
+     * while (fileScanner.hasNextLine()) {
+     * String line = fileScanner.nextLine();
+     * String[] parts = line.split(":");
+     * String llaveExiste = parts[0];
+     * String valorExiste = parts[1];
+     * if (llave != null && llaveExiste.equals(llave)) {
+     * return true;
+     * }
+     * if (valor != null && valorExiste.equals(valor)) {
+     * return true;
+     * }
+     * }
+     * } catch (FileNotFoundException e) {
+     * System.out.println(">> Error al abrir el archivo: " + e.getMessage());
+     * } catch (Exception e) {
+     * System.out.println(">> Error al cerrar el Scanner: " + e.getMessage());
+     * }
+     * return false;
+     * }
+     */
 
 }

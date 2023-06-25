@@ -12,6 +12,7 @@ public class Menus {
             switch (option) {
                 case 1:
                     Usuario.ingresar(scanner);
+                    ;
                     break;
                 case 2:
                     Usuario.registrarse(scanner);
@@ -35,7 +36,7 @@ public class Menus {
             System.out.println("Cargando...");
             Varios.pausa(500);
             Varios.limpiar();
-            System.out.print("### SecureKey Manager 0.2 ###         " + Usuario.llave
+            System.out.print("### SecureKey Manager 0.2 ###         " + Usuario.nombreUsuario
                     + "\nSeleccione una opción:\n1. Crear password.\n2. Leer passwords.\n3. Editar passwords.\n4. Borar password.\n5. Configuracion de cuenta.\n6. Cerrar sesion.\n>>");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();

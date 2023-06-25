@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class CLAB {
-    static final String FILE_PATH = "data/" + Usuario.llave; // Ruta del archivo donde se guardarán las passwords
+    static final String FILE_PATH = "data/" + Usuario.nombreUsuario; // Ruta del archivo donde se guardarán las passwords
 
     static void crear(Scanner scanner) {
         Varios.limpiar();
