@@ -51,6 +51,7 @@ public class Principal {
         System.out.println("Ingrese una password:\n>> ");
         String contrasenaUsuario = sc.nextLine();
         usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario));
+        Varios.limpiar();
         System.out.println(">> Creando usuario...");
         guardarUsuarios(Usuarios, usuarios);
         Varios.pausa(1500);
@@ -186,8 +187,8 @@ public class Principal {
         System.out.println(">> Ingrese ID de la password que desea modificar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
-        System.out.println(">> [n] Modificar nombre");
-        System.out.println(">> [c] Modificar destinatario");
+        System.out.println(">> [n] Modificar nombre.");
+        System.out.println(">> [c] Modificar destinatario.\n>> ");
         String opcion = sc.nextLine();
         switch (opcion) {
             case "n":

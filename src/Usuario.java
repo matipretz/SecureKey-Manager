@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.validator.ValidateWith;
+
 public class Usuario {
     private String nombreUsuario;
     private String contrasenaUsuario;
@@ -43,10 +45,11 @@ public class Usuario {
 
     public void listarContrasenas() {
         Varios.limpiar();
-        System.out.println("Cargando...");
+        System.out.println("Cargando...");        
         Varios.pausa(500);
+        Varios.limpiar();
         for (int i = 0; i < getContrasenas().size(); i++) {
-            System.out.println("ID: " + i + "\nNOMBRE: " + getContrasenas().get(i).getNombre() + "\nCONTRASENA: " + getContrasenas().get(i).getContrasena()+"\n\n");
+            System.out.println("ID: " + i + "\nNOMBRE: " + getContrasenas().get(i).getNombre() + "\nCONTRASENA: " + getContrasenas().get(i).getContrasena()+"\n");
         }
 
     }
