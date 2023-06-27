@@ -98,15 +98,15 @@ public class Principal {
                 scanner.nextLine();
                 switch (option) {
                     case 1:
-                        crearContrasena(Contrasenas,Usuarios, usuarios, usuarioConectado, sc);
+                        crearContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 2:
                         usuarioConectado.listarContrasenas();
-                        modificarContrasena(Usuarios, usuarios, usuarioConectado, sc);
+                        modificarContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 3:
                         usuarioConectado.listarContrasenas();
-                        eliminarContrasena(Contrasenas,Usuarios, usuarios, usuarioConectado, sc);
+                        eliminarContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 4:
                         usuarioConectado.listarContrasenas();
@@ -182,7 +182,7 @@ public class Principal {
             menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
         }
     }
-    public static void modificarContrasena(File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
+    public static void modificarContrasena(File Contrasenas,File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
         System.out.println(">> Ingrese ID de la password que desea modificar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
@@ -208,7 +208,7 @@ public class Principal {
                 break;
             default:
                 System.out.println(">> Opción inválida.");
-                modificarContrasena(Usuarios, usuarios, usuarioConectado, sc);
+                modificarContrasena(Contrasenas,Usuarios, usuarios, usuarioConectado, sc);
                 break;
         }
         guardarContrasenas(Usuarios, usuarios);
