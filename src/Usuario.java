@@ -42,8 +42,11 @@ public class Usuario {
     }
 
     public void listarContrasenas() {
+        Varios.limpiar();
+        System.out.println("Cargando...");
+        Varios.pausa(500);
         for (int i = 0; i < getContrasenas().size(); i++) {
-            System.out.println("ID: " + i + "\nNOMBRE: " + getContrasenas().get(i).getNombre() + "\nCONTRASENA: " + getContrasenas().get(i).getContrasena()+"\n");
+            System.out.println("ID: " + i + "\nNOMBRE: " + getContrasenas().get(i).getNombre() + "\nCONTRASENA: " + getContrasenas().get(i).getContrasena()+"\n\n");
         }
 
     }

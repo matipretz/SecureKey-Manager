@@ -48,7 +48,7 @@ public class Principal {
         System.out.print("### Registrarse ###\n");
         System.out.print(">> Ingrese un nombre de usuario:\n>> ");
         String nombreUsuario = sc.nextLine();
-        System.out.println("Ingrese una contraseña:\n>> ");
+        System.out.println("Ingrese una password:\n>> ");
         String contrasenaUsuario = sc.nextLine();
         usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario));
         System.out.println(">> Creando usuario...");
@@ -81,7 +81,7 @@ public class Principal {
                 Varios.pausa(1000);
                 return usuarios.get(pos); // si coinciden, me retorna el usuario en cuestión, accediendo mediante get()
             } else {
-                System.out.println("Contraseña incorrecta");
+                System.out.println("Password incorrecta");
                 return null; // si no coinciden, me retorna null. Esta parte debería mejorarse
             }
         }
@@ -152,7 +152,10 @@ public class Principal {
         }
         System.out.println(usuarioConectado.getNombreUsuario());
         usuarioConectado.setContrasena(new Contrasenas(usuarioConectado.getNombreUsuario(), name, password));
+        Varios.limpiar();
+        System.out.println("Creando...");
         guardarContrasenas(Contrasenas, usuarios);
+        Varios.pausa(500);        
         System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
         sc.nextLine();
         menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
@@ -172,7 +175,7 @@ public class Principal {
         if (resp.equals("s")) {
             usuarioConectado.getContrasenas().remove(indice);
             guardarContrasenas(Contrasenas, usuarios);
-            System.out.println(">> Contrasena eliminada.");
+            System.out.println(">> Password eliminada.");
             menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
         } else {
             System.out.println(">> Eliminación cancelada");
@@ -180,7 +183,7 @@ public class Principal {
         }
     }
     public static void modificarContrasena(File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
-        System.out.println(">> Ingrese ID de la postal que desea modificar:\n>> ");
+        System.out.println(">> Ingrese ID de la password que desea modificar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
         System.out.println(">> [n] Modificar nombre");
@@ -191,11 +194,17 @@ public class Principal {
                 System.out.print(">> Ingrese nuevo nombre:\n>> ");
                 String nombre = sc.nextLine();
                 usuarioConectado.getContrasenas().get(indice).setNombre(nombre);
+                System.out.println("Modificando...");
+                Varios.pausa(500);
+                System.out.println(">> Password modificada correctamente.\n>> Presione [ENTER] para continuar.");
                 break;
             case "c":
                 System.out.print(">> Ingrese nueva contrasena:\n>> ");
                 String contrasena = sc.nextLine();
                 usuarioConectado.getContrasenas().get(indice).setContrasena(contrasena);
+                System.out.println("Modificando...");
+                Varios.pausa(500);
+                System.out.println(">> Password modificada correctamente.\n>> Presione [ENTER] para continuar.");
                 break;
             default:
                 System.out.println(">> Opción inválida.");
