@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-    static String PATH = "data";
     private String nombreUsuario;
     private String contrasenaUsuario;
     private List<Contrasenas> contrasenas = new ArrayList<Contrasenas>();
@@ -44,8 +43,7 @@ public class Usuario {
 
     public void listarContrasenas() {
         for (int i = 0; i < getContrasenas().size(); i++) {
-            System.out.println("ID: " + i + "NOMBRE: " + getContrasenas().get(i).getNombre() + "CONTRASENA: "
-                    + getContrasenas().get(i).getContrasena());
+            System.out.println("ID: " + i + "\nNOMBRE: " + getContrasenas().get(i).getNombre() + "\nCONTRASENA: " + getContrasenas().get(i).getContrasena()+"\n");
         }
 
     }

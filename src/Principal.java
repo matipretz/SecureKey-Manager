@@ -13,7 +13,7 @@ public class Principal {
         while (true) {
             Varios.limpiar();
             System.out.print(
-                    "### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Registrarse.\n2. Iniciar sesion.\n3. Salir.\n>>");
+                    "### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Registrarse.\n2. Iniciar sesion.\n3. Salir.\n>> ");
             int option = sc.nextInt();
             sc.nextLine();
             switch (option) {
@@ -24,10 +24,7 @@ public class Principal {
                 case 2:
                     Usuario usuarioConectado = ingresar(usuarios, sc);
                     if (usuarioConectado != null) {
-                        Varios.limpiar();
-                        System.out.println(">> Hola " + usuarioConectado + ".");
-                        Varios.pausa(1000);
-                        crearContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
+                        menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
                     } else {
                         System.out.println("No se ha podido iniciar sesión");
                         logueo(Contrasenas, Usuarios, usuarios, sc);
@@ -49,9 +46,9 @@ public class Principal {
     public static void registrarse(File Usuarios, List<Usuario> usuarios, Scanner sc) {
         Varios.limpiar();
         System.out.print("### Registrarse ###\n");
-        System.out.print(">> Ingrese su nombre de usuario:\n>> ");
+        System.out.print(">> Ingrese un nombre de usuario:\n>> ");
         String nombreUsuario = sc.nextLine();
-        System.out.println("Ingrese una contraseña");
+        System.out.println("Ingrese una contraseña:\n>> ");
         String contrasenaUsuario = sc.nextLine();
         usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario));
         System.out.println(">> Creando usuario...");
@@ -95,8 +92,7 @@ public class Principal {
                 System.out.println("Cargando...");
                 Varios.pausa(500);
                 Varios.limpiar();
-                System.out.print("### SecureKey Manager 0.2 ###         " +usuarioConectado
-                        + "\nSeleccione una opción:\n1. Crear password.\n2. Editar passwords.\n3. Borar passwords.\n4. Ver password.\n5. Configuracion de cuenta.(EN DESARROLLO)\n6. Cerrar sesion.\n>>");
+                System.out.print("### SecureKey Manager 0.2 ###2\nSeleccione una opción:\n1. Crear password.\n2. Editar passwords.\n3. Borar passwords.\n4. Ver password.\n5. Configuracion de cuenta.(EN DESARROLLO)\n6. Cerrar sesion.\n>> ");
                 Scanner scanner = new Scanner(System.in);
                 int option = scanner.nextInt();
                 scanner.nextLine();
@@ -105,13 +101,17 @@ public class Principal {
                         crearContrasena(Contrasenas,Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 2:
+                        usuarioConectado.listarContrasenas();
                         modificarContrasena(Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 3:
+                        usuarioConectado.listarContrasenas();
                         eliminarContrasena(Contrasenas,Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 4:
                         usuarioConectado.listarContrasenas();
+                        System.out.println(">> Presione [ENTER] para continuar.");
+                        sc.nextLine();
                         menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, scanner);
                         break;
                     case 5:
@@ -164,7 +164,7 @@ public class Principal {
 
         usuarioConectado.listarContrasenas();
 
-        System.out.print(">> Ingrese el ID de la password a borrar: ");
+        System.out.print(">> Ingrese el ID de la password a borrar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
         System.out.println(">> Está seguro/a de esta operación? [s / n]");
@@ -188,12 +188,12 @@ public class Principal {
         String opcion = sc.nextLine();
         switch (opcion) {
             case "n":
-                System.out.print(">> Ingrese nuevo nombre: ");
+                System.out.print(">> Ingrese nuevo nombre:\n>> ");
                 String nombre = sc.nextLine();
                 usuarioConectado.getContrasenas().get(indice).setNombre(nombre);
                 break;
             case "c":
-                System.out.print(">> Ingrese nueva contrasena");
+                System.out.print(">> Ingrese nueva contrasena:\n>> ");
                 String contrasena = sc.nextLine();
                 usuarioConectado.getContrasenas().get(indice).setContrasena(contrasena);
                 break;
@@ -264,14 +264,14 @@ public class Principal {
         return provisoria;        
     }
     public static void main(String[] args) throws IOException {
-        File Usuarios = new File("Usuarios.txt");
+        Varios.verificarDirectorios();
+        Varios.mensaje();
+        File Usuarios = new File("data/Usuarios.txt");
         Usuarios.createNewFile();
-        File Contrasenas = new File("Contrasenas.txt");
+        File Contrasenas = new File("data/Contrasenas.txt");
         Contrasenas.createNewFile();
-
         List<Usuario> usuarios = new ArrayList<Usuario>();
         usuarios = traerUsuarios(Usuarios);
-
         for (Contrasenas contrasena : traerContrasenas(Contrasenas)) {
             for (Usuario usuario : usuarios) {
                 if (contrasena.getId().equals(usuario.getNombreUsuario())) {
@@ -280,8 +280,6 @@ public class Principal {
             }
         }
         Scanner sc = new Scanner(System.in);
-        Varios.verificarDirectorios();
-        Varios.mensaje();
         logueo(Usuarios, Contrasenas, usuarios, sc);
     }
 }
