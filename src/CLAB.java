@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 class CLAB {
-    static final String FILE_PATH = "data/" + Usuario.nombreUsuario; // Ruta del archivo donde se guardarán las passwords
+    static final String FILE_PATH = "data/" ; // Ruta del archivo donde se guardarán las passwords
 
     static void crear(Scanner scanner) {
         Varios.limpiar();
@@ -20,11 +20,11 @@ class CLAB {
             System.out.print(">> El nombre no puede estar vacio.\nIngrese un nombre para la password:\n>> ");
             name = scanner.nextLine();
         }
-        while (Varios.verificar(name, null, CLAB.FILE_PATH)) {
+        /* while (Varios.verificar(name, null, CLAB.FILE_PATH)) {
             Varios.limpiar();
             System.out.print(">> El nombre de usuario ya está en uso.\nIngrese un nombre para la password:\n>> ");
             name = scanner.nextLine();
-        }
+        } */
         System.out.print(">> Ingrese la password:\n>> ");
         String password = scanner.nextLine();
         while (password.trim().isEmpty()) { // Validar que el campo password no esté vacio
@@ -59,7 +59,7 @@ class CLAB {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Varios.pausa(1500);
-            Menus.principal();
+            //Menus.principal();
         }
     }
 
@@ -92,11 +92,11 @@ class CLAB {
             }
             System.out.println(">> No se encuentran passwords guardadas.\n>> Presione [ENTER] para continuar.");
             scanner.nextLine();
-            Menus.principal();
+          //  Menus.principal();
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Varios.pausa(1500);
-            Menus.principal();
+           // Menus.principal();
         }
     }
 
@@ -124,7 +124,7 @@ class CLAB {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error: " + e);
             Varios.pausa(1500);
-            Menus.principal();
+          //  Menus.principal();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(CLAB.FILE_PATH))) {
@@ -164,7 +164,7 @@ class CLAB {
         } catch (FileNotFoundException e) {
             System.out.println(">> No se encontró el archivo de passwords. Error:" + e);
             Varios.pausa(1500);
-            Menus.principal();
+           // Menus.principal();
             return;
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_PATH))) { // Intenta crear un archivo en modo
@@ -179,7 +179,7 @@ class CLAB {
         } catch (IOException e) {
             System.out.println(">> Error al borrar la password: " + e.getMessage());
             Varios.pausa(1500);
-            Menus.principal();
+            //Menus.principal();
         }
     }
 }

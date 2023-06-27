@@ -12,6 +12,12 @@ public class Usuario {
         this.contrasenaUsuario = contrasenaUsuario;
     }
 
+    Usuario(String nombreUsuario, String contrasenaUsuario, List<Contrasenas> contrasenas) {
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenaUsuario = contrasenaUsuario;
+        this.contrasenas = contrasenas;
+    }
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -38,9 +44,9 @@ public class Usuario {
 
     public void listarContrasenas() {
         for (int i = 0; i < getContrasenas().size(); i++) {
-            System.out.println("id: " + i);
-            System.out.println("Remitente: " + getContrasenas().get(i).getNombre());
-            System.out.println("Destinatario: " + getContrasenas().get(i).getContrasena());
+            System.out.println("ID: " + i + "NOMBRE: " + getContrasenas().get(i).getNombre() + "CONTRASENA: "
+                    + getContrasenas().get(i).getContrasena());
         }
+
     }
 }

@@ -1,11 +1,7 @@
 import java.io.File;
-//import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
-//import java.util.Scanner;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -15,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.management.openmbean.InvalidKeyException;
 
 class Varios {
-    
+
     static void verificarDirectorios() { // Verifica la existencia de la ruta necesaria y la crea si falta.
         String directory = "data";
         File file = new File(directory);
@@ -60,7 +56,7 @@ class Varios {
         return input;
     }
 
-    static String ENCRYPT_KEY = (ajustar(Usuario.nombreUsuario + Usuario.contrasenaUsuario));
+    static String ENCRYPT_KEY = (ajustar("Usuario.nombreUsuario + Usuario.contrasenaUsuario"));
 
     static String encriptar(String text) {
         try {
