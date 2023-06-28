@@ -302,7 +302,8 @@ public class Principal {
             Scanner sc = new Scanner(Usuarios);
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
-                atributosUsuario = datos.split(":");
+                String decripted = Varios.desencriptar(datos);
+                atributosUsuario = decripted.split(":");
                 listaProvisoria.add(new Usuario(atributosUsuario[0], atributosUsuario[1]));
             }
             sc.close();
@@ -317,8 +318,8 @@ public class Principal {
             FileWriter fw = new FileWriter(Contrasenas);
             for (Usuario usuario : usuarios) {
                 for (Contrasenas contrasena : usuario.getContrasenas()) {
-                    fw.write(usuario.getNombreUsuario() + ";" + contrasena.getNombre() + ";"
-                            + contrasena.getContrasena() + "\n");
+                    String encripted = Varios.encriptar(usuario.getNombreUsuario() + ";" + contrasena.getNombre() + ";"+ contrasena.getContrasena() + "\n");
+                    fw.write(encripted);
                 }
             }
             fw.close();
@@ -333,7 +334,8 @@ public class Principal {
         try (Scanner sc = new Scanner(Contrasenas)) {
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
-                datosContrasena = datos.split(";");
+                String decripted = Varios.desencriptar(datos);
+                datosContrasena = decripted.split(":");
                 provisoria.add(new Contrasenas(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
             }
         } catch (FileNotFoundException e) {

@@ -1,12 +1,15 @@
 import java.io.File;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.List;
 import java.util.Scanner;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
 class Varios {
 
     static void verificarDirectorios() { // Verifica la existencia de la ruta necesaria y la crea si falta.
@@ -36,9 +39,30 @@ class Varios {
 
     static void mensaje() { // Mensaje de bienvenida.
         limpiar();
-        System.out.print(
-                "###\nSecureKey Manager 0.2\nCaC 4.0-23438-2023 SEM1\nAlumno: Matías Martín Murad Pretz\n33.366.158\nDocente: Gonzalo F. Rubé\nTutora: Zoraida Flores\n###\n");
-        pausa(2000);
+        System.out.print("###\nSecureKey Manager 0.2\n");
+        pausa(100);
+
+        System.out.print("CaC 4.0-23438-2023 SEM1\n");
+        pausa(100);
+
+        System.out.print("Alumno: Matías Martín Murad Pretz\n");
+        pausa(100);
+
+        System.out.print("33.366.158\n");
+        pausa(100);
+
+        System.out.print("Docente: Gonzalo F. Rubé\n");
+        pausa(100);
+
+        System.out.print("Tutora: Zoraida Flores\n");
+        pausa(100);
+
+        System.out.print(ajustar(getMacAddress()) + "\n");
+        pausa(100);
+
+        System.out.print("###\n>> Cargando...");
+        pausa(500);
+
         limpiar();
     }
 
@@ -59,7 +83,7 @@ class Varios {
         int desiredLength = 32;
         if (input.length() < desiredLength) { // Agregar caracteres al final.
             while (input.length() < desiredLength) {
-                input += "@";
+                input += "A7fG8Kp3dRbT9qY5hN2wX6jZ1cV4mS0l";
             }
         } else if (input.length() > desiredLength) { // Cortar caracteres al final.
             input = input.substring(0, desiredLength);
@@ -67,7 +91,38 @@ class Varios {
         return input;
     }
 
-    static String ENCRYPT_KEY = (ajustar("Usuario.nombreUsuario + Usuario.contrasenaUsuario"));
+    public static String getMacAddress() {
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            NetworkInterface networkInterface = NetworkInterface.getByInetAddress(localhost);
+            byte[] macBytes = networkInterface.getHardwareAddress();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < macBytes.length; i++) {
+                sb.append(String.format("%02X%s", macBytes[i], (i < macBytes.length - 1) ? "-" : ""));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    static String getHash(String input) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02X", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    static String ENCRYPT_KEY = ajustar(getHash(getMacAddress()));
 
     static String encriptar(String text) {
         try {
