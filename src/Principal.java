@@ -286,8 +286,8 @@ public class Principal {
         try {
             FileWriter fw = new FileWriter(Usuarios);
             for (Usuario usuario : usuarios) {
-                
-                fw.write(usuario.getNombreUsuario() + ":" + usuario.getContrasenaUsuario() + "\n");
+                String encripted = Varios.encriptar(usuario.getNombreUsuario() + ":" + usuario.getContrasenaUsuario() + "\n");
+                fw.write(encripted);
             }
             fw.close();
         } catch (IOException e) {
