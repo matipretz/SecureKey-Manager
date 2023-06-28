@@ -61,7 +61,7 @@ class Varios {
         pausa(100);
 
         System.out.print("###\n>> Cargando...");
-        pausa(500);
+        pausa(2000);
 
         limpiar();
     }
