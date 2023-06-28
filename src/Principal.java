@@ -56,6 +56,7 @@ public class Principal {
 
     public static void registrarse(File Usuarios, List<Usuario> usuarios, Scanner sc) {
         Varios.limpiar();
+        
         System.out.print("### Registrarse ###\n");
         String nombreUsuario;
         boolean nombreValido = false;
@@ -74,11 +75,13 @@ public class Principal {
         } while (!nombreValido);
         String contrasenaUsuario;
         do {
-            System.out.print(">> Ingrese una contraseña:\n>> ");
-            contrasenaUsuario = sc.nextLine();
+            Console console = System.console();
+            char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
+            String password = new String(passwordArray);
+            contrasenaUsuario = password;
             if (contrasenaUsuario.isEmpty()) {
                 Varios.limpiar();
-                System.out.println(">> La contraseña no puede estar vacía.");
+                System.out.println(">> La password no puede estar vacía.");
             }
         } while (contrasenaUsuario.isEmpty());
         usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario));
@@ -114,12 +117,12 @@ public class Principal {
                 Varios.limpiar();
                 System.out.println(">> Hola " + user + ".");
                 Varios.pausa(1000);
-                return usuarios.get(pos); // si coinciden, me retorna el usuario en cuestión, accediendo mediante get()
+                return usuarios.get(pos);
             } else {
                 Varios.limpiar();
                 System.out.println("Password incorrecta");
                 Varios.continuar(sc);
-                return null; // si no coinciden, me retorna null. Esta parte debería mejorarse
+                return null;
             }
         }
     }
@@ -155,9 +158,9 @@ public class Principal {
                         menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 5:
+                        Varios.limpiar();
                         System.out.println(">> En desarrollo.");
                         Varios.continuar(sc);
-                        // Usuario.cuenta();
                         break;
                     case 6:
                         Varios.limpiar();
@@ -194,13 +197,13 @@ public class Principal {
             System.out.print(">> El nombre no puede estar vacio.\nIngrese un nombre para la password:\n>> ");
             name = sc.nextLine();
         }
-        System.out.print(">> Ingrese la password:\n>> ");
-        String password = sc.nextLine();
-        while (password.trim().isEmpty()) { // Validar que el campo password no esté vacio
+        Console console = System.console();
+        char[] passwordArray = console.readPassword(">> Ingrese la password:    (echo=off)\n>> ");
+        String password = new String(passwordArray);
+        while (password.trim().isEmpty()) { 
             System.out.print(">> La password no puede estar vacia. \n>> Ingrese la password:\n>> ");
             password = sc.nextLine();
         }
-        System.out.println(usuarioConectado.getNombreUsuario());
         usuarioConectado.setContrasena(new Contrasenas(usuarioConectado.getNombreUsuario(), name, password));
         Varios.limpiar();
         System.out.println("Creando...");
@@ -221,7 +224,7 @@ public class Principal {
         sc.nextLine();
         System.out.println(">> Está seguro/a de esta operación? [s / n]");
         String resp = sc.nextLine();
-        if (resp.equals("s")) {
+        if (resp.equalsIgnoreCase("s")) {
             usuarioConectado.getContrasenas().remove(indice);
             guardarContrasenas(Contrasenas, usuarios);
             Varios.limpiar();
@@ -238,11 +241,11 @@ public class Principal {
 
     public static void modificarContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
             Usuario usuarioConectado, Scanner sc) {
-        System.out.println(">> Ingrese ID de la password que desea modificar:\n>> ");
+        System.out.print(">> Ingrese ID de la password que desea modificar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
         System.out.println(">> [n] Modificar nombre.");
-        System.out.println(">> [c] Modificar destinatario.\n>> ");
+        System.out.print(">> [c] Modificar destinatario.\n>> ");
         try {
             String opcion = sc.nextLine();
             switch (opcion) {
@@ -283,6 +286,7 @@ public class Principal {
         try {
             FileWriter fw = new FileWriter(Usuarios);
             for (Usuario usuario : usuarios) {
+                
                 fw.write(usuario.getNombreUsuario() + ":" + usuario.getContrasenaUsuario() + "\n");
             }
             fw.close();
@@ -325,12 +329,12 @@ public class Principal {
 
     public static List<Contrasenas> traerContrasenas(File Contrasenas) {
         List<Contrasenas> provisoria = new ArrayList<Contrasenas>();
-        String[] datosPostal = new String[5];
+        String[] datosContrasena = new String[5];
         try (Scanner sc = new Scanner(Contrasenas)) {
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
-                datosPostal = datos.split(";");
-                provisoria.add(new Contrasenas(datosPostal[0], datosPostal[1], datosPostal[2]));
+                datosContrasena = datos.split(";");
+                provisoria.add(new Contrasenas(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -347,6 +351,7 @@ public class Principal {
         Contrasenas.createNewFile();
         List<Usuario> usuarios = new ArrayList<Usuario>();
         usuarios = traerUsuarios(Usuarios);
+
         for (Contrasenas contrasena : traerContrasenas(Contrasenas)) {
             for (Usuario usuario : usuarios) {
                 if (contrasena.getId().equals(usuario.getNombreUsuario())) {
