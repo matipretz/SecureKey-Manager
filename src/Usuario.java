@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.validator.ValidateWith;
-
 public class Usuario {
     private String nombreUsuario;
     private String contrasenaUsuario;
@@ -51,6 +49,5 @@ public class Usuario {
         for (int i = 0; i < getContrasenas().size(); i++) {
             System.out.println("ID: " + i + "\nNOMBRE: " + getContrasenas().get(i).getNombre() + "\nCONTRASENA: " + getContrasenas().get(i).getContrasena()+"\n");
         }
-
     }
 }

@@ -14,50 +14,82 @@ public class Principal {
             Varios.limpiar();
             System.out.print(
                     "### SecureKey Manager 0.2 ###\nSeleccione una opción:\n1. Registrarse.\n2. Iniciar sesion.\n3. Salir.\n>> ");
-            int option = sc.nextInt();
-            sc.nextLine();
-            switch (option) {
-                case 1:
-                    registrarse(Usuarios, usuarios, sc);
-                    logueo(Usuarios, Contrasenas, usuarios, sc);
-                    break;
-                case 2:
-                    Usuario usuarioConectado = ingresar(usuarios, sc);
-                    if (usuarioConectado != null) {
-                        menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
-                    } else {
-                        System.out.println("No se ha podido iniciar sesión");
-                        logueo(Contrasenas, Usuarios, usuarios, sc);
-                    }
-                    break;
-                case 3:
-                    Varios.limpiar();
-                    System.out.print(">> Saliendo...");
-                    Varios.pausa(1500);
-                    Varios.limpiar();
-                    System.exit(0);
-                default:
-                    System.out.print(">> Opción no válida. Vuelva a intentarlo.");
-                    logueo(Usuarios, Contrasenas, usuarios, sc);
-                    break;
+
+            try {
+                int option = sc.nextInt();
+                sc.nextLine();
+                switch (option) {
+                    case 1:
+                        registrarse(Usuarios, usuarios, sc);
+                        logueo(Usuarios, Contrasenas, usuarios, sc);
+                        break;
+                    case 2:
+                        Usuario usuarioConectado = ingresar(usuarios, sc);
+                        if (usuarioConectado != null) {
+                            menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
+                        } else {
+                            logueo(Contrasenas, Usuarios, usuarios, sc);
+                        }
+                        break;
+                    case 3:
+                        Varios.limpiar();
+                        System.out.print(">> Saliendo...");
+                        Varios.pausa(1500);
+                        Varios.limpiar();
+                        System.exit(0);
+                    default:
+                        Varios.limpiar();
+                        System.out.println(">> Opción no válida. Vuelva a intentarlo.");
+                        Varios.continuar(sc);
+                        logueo(Usuarios, Contrasenas, usuarios, sc);
+                        break;
+                }
+            } catch (Exception e) {
+                sc.nextLine();
+                Varios.limpiar();
+                System.out.println(">> Opción no válida. Vuelva a intentarlo.");
+                Varios.continuar(sc);
+                logueo(Usuarios, Contrasenas, usuarios, sc);
             }
         }
     }
+
     public static void registrarse(File Usuarios, List<Usuario> usuarios, Scanner sc) {
         Varios.limpiar();
         System.out.print("### Registrarse ###\n");
-        System.out.print(">> Ingrese un nombre de usuario:\n>> ");
-        String nombreUsuario = sc.nextLine();
-        System.out.println("Ingrese una password:\n>> ");
-        String contrasenaUsuario = sc.nextLine();
+        String nombreUsuario;
+        boolean nombreValido = false;
+        do {
+            System.out.print(">> Ingrese un nombre de usuario:\n>> ");
+            nombreUsuario = sc.nextLine();
+            if (nombreUsuario.isEmpty()) {
+                Varios.limpiar();
+                System.out.println(">> El nombre de usuario no puede estar vacío.");
+            } else if (Varios.existeUsuario(usuarios, nombreUsuario)) {
+                Varios.limpiar();
+                System.out.println(">> El nombre de usuario ya está en uso.");
+            } else {
+                nombreValido = true;
+            }
+        } while (!nombreValido);
+        String contrasenaUsuario;
+        do {
+            System.out.print(">> Ingrese una contraseña:\n>> ");
+            contrasenaUsuario = sc.nextLine();
+            if (contrasenaUsuario.isEmpty()) {
+                Varios.limpiar();
+                System.out.println(">> La contraseña no puede estar vacía.");
+            }
+        } while (contrasenaUsuario.isEmpty());
         usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario));
         Varios.limpiar();
         System.out.println(">> Creando usuario...");
         guardarUsuarios(Usuarios, usuarios);
         Varios.pausa(1500);
-        System.out.println(">> Usuario creado.\n>> Presione [ENTER] para continuar.");
-        sc.nextLine();
+        System.out.println(">> Usuario creado.");
+        Varios.continuar(sc);
     }
+
     public static Usuario ingresar(List<Usuario> usuarios, Scanner sc) {
         Console console = System.console();
         Varios.limpiar();
@@ -73,7 +105,9 @@ public class Principal {
             }
         }
         if (pos == -1) {
+            Varios.limpiar();
             System.out.println("Usuario no encontrado");
+            Varios.continuar(sc);
             return null;
         } else {
             if (usuarios.get(pos).getContrasenaUsuario().equals(password)) {
@@ -82,21 +116,27 @@ public class Principal {
                 Varios.pausa(1000);
                 return usuarios.get(pos); // si coinciden, me retorna el usuario en cuestión, accediendo mediante get()
             } else {
+                Varios.limpiar();
                 System.out.println("Password incorrecta");
+                Varios.continuar(sc);
                 return null; // si no coinciden, me retorna null. Esta parte debería mejorarse
             }
         }
     }
-    public static void menuContrasenas (File Contrasenas, File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
+
+    public static void menuContrasenas(File Contrasenas, File Usuarios, List<Usuario> usuarios,
+            Usuario usuarioConectado, Scanner sc) {
         while (true) {
-                Varios.limpiar();
-                System.out.println("Cargando...");
-                Varios.pausa(500);
-                Varios.limpiar();
-                System.out.print("### SecureKey Manager 0.2 ###2\nSeleccione una opción:\n1. Crear password.\n2. Editar passwords.\n3. Borar passwords.\n4. Ver password.\n5. Configuracion de cuenta.(EN DESARROLLO)\n6. Cerrar sesion.\n>> ");
-                Scanner scanner = new Scanner(System.in);
-                int option = scanner.nextInt();
-                scanner.nextLine();
+            Varios.limpiar();
+            System.out.println("Cargando...");
+            Varios.pausa(500);
+            Varios.limpiar();
+            System.out.print(
+                    "### SecureKey Manager 0.2 ###2\nSeleccione una opción:\n1. Crear password.\n2. Editar passwords.\n3. Borar passwords.\n4. Ver password.\n5. Configuracion de cuenta.(EN DESARROLLO)\n6. Cerrar sesion.\n>> ");
+
+            try {
+                int option = sc.nextInt();
+                sc.nextLine();
                 switch (option) {
                     case 1:
                         crearContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
@@ -111,31 +151,40 @@ public class Principal {
                         break;
                     case 4:
                         usuarioConectado.listarContrasenas();
-                        System.out.println(">> Presione [ENTER] para continuar.");
-                        sc.nextLine();
-                        menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, scanner);
+                        Varios.continuar(sc);
+                        menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
                         break;
                     case 5:
                         System.out.println(">> En desarrollo.");
-                        System.out.println(">> Presione [ENTER] para continuar.");
-                        sc.nextLine();
-                        //Usuario.cuenta();
+                        Varios.continuar(sc);
+                        // Usuario.cuenta();
                         break;
                     case 6:
                         Varios.limpiar();
-                        System.out.println(">> Hasta luego, " + usuarioConectado.getNombreUsuario()+".");
+                        System.out.println(">> Hasta luego, " + usuarioConectado.getNombreUsuario() + ".");
                         usuarioConectado = null;
                         System.out.print(">> Cerrando sesion...");
                         Varios.pausa(1500);
                         Varios.limpiar();
                         logueo(Usuarios, Contrasenas, usuarios, sc);
                     default:
-                        System.out.print(">> Opción no válida. Vuelva a intentarlo.");
+                        Varios.limpiar();
+                        System.out.println(">> Opción no válida. Vuelva a intentarlo.");
+                        Varios.continuar(sc);
                         break;
                 }
+            } catch (Exception e) {
+                sc.nextLine();
+                Varios.limpiar();
+                System.out.println(">> Opción no válida. Vuelva a intentarlo.");
+                Varios.continuar(sc);
+                logueo(Usuarios, Contrasenas, usuarios, sc);
             }
+        }
     }
-    public static void crearContrasena(File Contrasenas, File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
+
+    public static void crearContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
+            Usuario usuarioConectado, Scanner sc) {
         Varios.limpiar();
         System.out.print("### Crear passwords ###\n");
         System.out.print(">> Ingrese un nombre para la password:\n>> ");
@@ -148,7 +197,7 @@ public class Principal {
         System.out.print(">> Ingrese la password:\n>> ");
         String password = sc.nextLine();
         while (password.trim().isEmpty()) { // Validar que el campo password no esté vacio
-            System.out.print(">> La password no puede estar vacia. Ingrese la password:\n>> ");
+            System.out.print(">> La password no puede estar vacia. \n>> Ingrese la password:\n>> ");
             password = sc.nextLine();
         }
         System.out.println(usuarioConectado.getNombreUsuario());
@@ -156,18 +205,17 @@ public class Principal {
         Varios.limpiar();
         System.out.println("Creando...");
         guardarContrasenas(Contrasenas, usuarios);
-        Varios.pausa(500);        
-        System.out.println(">> Password creada y guardada correctamente.\n>> Presione [ENTER] para continuar.");
-        sc.nextLine();
+        Varios.pausa(500);
+        System.out.println(">> Password creada y guardada correctamente.");
+        Varios.continuar(sc);
         menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
     }
-    public static void eliminarContrasena(File Contrasenas, File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
+
+    public static void eliminarContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
+            Usuario usuarioConectado, Scanner sc) {
         Varios.limpiar();
         System.out.print("### Borrar passwords ###\n");
-
-
         usuarioConectado.listarContrasenas();
-
         System.out.print(">> Ingrese el ID de la password a borrar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
@@ -176,45 +224,61 @@ public class Principal {
         if (resp.equals("s")) {
             usuarioConectado.getContrasenas().remove(indice);
             guardarContrasenas(Contrasenas, usuarios);
+            Varios.limpiar();
             System.out.println(">> Password eliminada.");
+            Varios.continuar(sc);
             menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
         } else {
+            Varios.limpiar();
             System.out.println(">> Eliminación cancelada");
+            Varios.continuar(sc);
             menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
         }
     }
-    public static void modificarContrasena(File Contrasenas,File Usuarios, List <Usuario> usuarios, Usuario usuarioConectado, Scanner sc){
+
+    public static void modificarContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
+            Usuario usuarioConectado, Scanner sc) {
         System.out.println(">> Ingrese ID de la password que desea modificar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
         System.out.println(">> [n] Modificar nombre.");
         System.out.println(">> [c] Modificar destinatario.\n>> ");
-        String opcion = sc.nextLine();
-        switch (opcion) {
-            case "n":
-                System.out.print(">> Ingrese nuevo nombre:\n>> ");
-                String nombre = sc.nextLine();
-                usuarioConectado.getContrasenas().get(indice).setNombre(nombre);
-                System.out.println("Modificando...");
-                Varios.pausa(500);
-                System.out.println(">> Password modificada correctamente.\n>> Presione [ENTER] para continuar.");
-                break;
-            case "c":
-                System.out.print(">> Ingrese nueva contrasena:\n>> ");
-                String contrasena = sc.nextLine();
-                usuarioConectado.getContrasenas().get(indice).setContrasena(contrasena);
-                System.out.println("Modificando...");
-                Varios.pausa(500);
-                System.out.println(">> Password modificada correctamente.\n>> Presione [ENTER] para continuar.");
-                break;
-            default:
-                System.out.println(">> Opción inválida.");
-                modificarContrasena(Contrasenas,Usuarios, usuarios, usuarioConectado, sc);
-                break;
+        try {
+            String opcion = sc.nextLine();
+            switch (opcion) {
+                case "n":
+                    System.out.print(">> Ingrese nuevo nombre:\n>> ");
+                    String nombre = sc.nextLine();
+                    usuarioConectado.getContrasenas().get(indice).setNombre(nombre);
+                    System.out.println("Modificando...");
+                    Varios.pausa(500);
+                    System.out.println(">> Password modificada correctamente.");
+                    Varios.continuar(sc);
+                    break;
+                case "c":
+                    System.out.print(">> Ingrese nueva contrasena:\n>> ");
+                    String contrasena = sc.nextLine();
+                    usuarioConectado.getContrasenas().get(indice).setContrasena(contrasena);
+                    System.out.println("Modificando...");
+                    Varios.pausa(500);
+                    System.out.println(">> Password modificada correctamente.");
+                    Varios.continuar(sc);
+                    break;
+                default:
+                    System.out.println(">> Opción inválida.");
+                    Varios.continuar(sc);
+                    modificarContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(">> Opción inválida.");
+            Varios.continuar(sc);
+            modificarContrasena(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
         }
         guardarContrasenas(Usuarios, usuarios);
         menuContrasenas(Usuarios, Usuarios, usuarios, usuarioConectado, sc);
     }
+
     public static void guardarUsuarios(File Usuarios, List<Usuario> usuarios) {
         try {
             FileWriter fw = new FileWriter(Usuarios);
@@ -222,11 +286,11 @@ public class Principal {
                 fw.write(usuario.getNombreUsuario() + ":" + usuario.getContrasenaUsuario() + "\n");
             }
             fw.close();
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
+
     public static List<Usuario> traerUsuarios(File Usuarios) {
         List<Usuario> listaProvisoria = new ArrayList<Usuario>();
         String[] atributosUsuario = new String[2];
@@ -238,41 +302,42 @@ public class Principal {
                 listaProvisoria.add(new Usuario(atributosUsuario[0], atributosUsuario[1]));
             }
             sc.close();
-        } 
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println(e);
         }
         return listaProvisoria;
     }
-    public static void guardarContrasenas(File Contrasenas, List<Usuario> usuarios){
+
+    public static void guardarContrasenas(File Contrasenas, List<Usuario> usuarios) {
         try {
             FileWriter fw = new FileWriter(Contrasenas);
             for (Usuario usuario : usuarios) {
                 for (Contrasenas contrasena : usuario.getContrasenas()) {
-                    fw.write(usuario.getNombreUsuario() + ";" + contrasena.getNombre() + ";" + contrasena.getContrasena()+ "\n");
+                    fw.write(usuario.getNombreUsuario() + ";" + contrasena.getNombre() + ";"
+                            + contrasena.getContrasena() + "\n");
                 }
             }
             fw.close();
-        } 
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
-    public static List<Contrasenas> traerContrasenas(File Contrasenas){
+
+    public static List<Contrasenas> traerContrasenas(File Contrasenas) {
         List<Contrasenas> provisoria = new ArrayList<Contrasenas>();
         String[] datosPostal = new String[5];
-        try (Scanner sc = new Scanner(Contrasenas)){
+        try (Scanner sc = new Scanner(Contrasenas)) {
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
                 datosPostal = datos.split(";");
                 provisoria.add(new Contrasenas(datosPostal[0], datosPostal[1], datosPostal[2]));
-            }          
-        } 
-        catch (FileNotFoundException e) {
+            }
+        } catch (FileNotFoundException e) {
             System.out.println(e);
         }
-        return provisoria;        
+        return provisoria;
     }
+
     public static void main(String[] args) throws IOException {
         Varios.verificarDirectorios();
         Varios.mensaje();

@@ -1,15 +1,12 @@
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import javax.crypto.BadPaddingException;
+import java.util.List;
+import java.util.Scanner;
+
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.management.openmbean.InvalidKeyException;
-
 class Varios {
 
     static void verificarDirectorios() { // Verifica la existencia de la ruta necesaria y la crea si falta.
@@ -23,6 +20,20 @@ class Varios {
         }
     }
 
+    static void continuar(Scanner sc) {
+        System.out.println(">> Presione [ENTER] para continuar.");
+        sc.nextLine();
+    }
+
+    static boolean existeUsuario(List<Usuario> usuarios, String nombreUsuario) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNombreUsuario().equals(nombreUsuario)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     static void mensaje() { // Mensaje de bienvenida.
         limpiar();
         System.out.print(
@@ -65,8 +76,7 @@ class Varios {
             cipher.init(Cipher.ENCRYPT_MODE, aesKey);
             byte[] encryptedBytes = cipher.doFinal(text.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(encryptedBytes);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | BadPaddingException | java.security.InvalidKeyException e) {
+        } catch (Exception e) {
             System.out.println("Error al cifrar la contraseña: " + e.getMessage());
             return null;
         }
@@ -80,13 +90,11 @@ class Varios {
             byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText);
             byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
             return new String(decryptedBytes, StandardCharsets.UTF_8);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-                | BadPaddingException | java.security.InvalidKeyException e) {
+        } catch (Exception e) {
             System.out.println("Error al descifrar la contraseña: " + e.getMessage());
             return null;
         }
     }
-
     /*
      * static boolean verificar(String llave, String valor, String FILE_PATH) { //
      * Verifica que la llave y/o el valor en
@@ -112,5 +120,4 @@ class Varios {
      * return false;
      * }
      */
-
 }
