@@ -12,7 +12,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+
 *.war
 *.nar
 *.ear
@@ -75,6 +75,7 @@ $RECYCLE.BIN/
 
 # Model files
 data
+lib
 
 # Windows shortcuts
 *.lnk
