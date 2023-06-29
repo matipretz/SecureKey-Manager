@@ -4,14 +4,14 @@ import java.util.List;
 public class Usuario {
     private String nombreUsuario;
     private String contrasenaUsuario;
-    private List<Contrasenas> contrasenas = new ArrayList<Contrasenas>();
+    private List<Contrasena> contrasenas = new ArrayList<Contrasena>();
 
     Usuario(String nombreUsuario, String contrasenaUsuario) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenaUsuario = contrasenaUsuario;
     }
 
-    Usuario(String nombreUsuario, String contrasenaUsuario, List<Contrasenas> contrasenas) {
+    Usuario(String nombreUsuario, String contrasenaUsuario, List<Contrasena> contrasenas) {
         this.nombreUsuario = nombreUsuario;
         this.contrasenaUsuario = contrasenaUsuario;
         this.contrasenas = contrasenas;
@@ -33,11 +33,11 @@ public class Usuario {
         this.contrasenaUsuario = contrasenaUsuario;
     }
 
-    public List<Contrasenas> getContrasenas() {
+    public List<Contrasena> getContrasenas() {
         return contrasenas;
     }
 
-    public void setContrasena(Contrasenas contrasena) {
+    public void setContrasena(Contrasena contrasena) {
         contrasenas.add(contrasena);
     }
 

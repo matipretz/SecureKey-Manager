@@ -1,11 +1,11 @@
-public class Contrasenas {
+public class Contrasena {
     // Atributos
     private String id;
     private String nombre;
     private String contrasena;
 
     // Constructor
-    Contrasenas(String id, String nombre, String contrasena) {
+    Contrasena(String id, String nombre, String contrasena) {
         this.id = id;
         this.nombre = nombre;
         this.contrasena = contrasena;

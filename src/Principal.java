@@ -204,7 +204,7 @@ public class Principal {
             System.out.print(">> La password no puede estar vacia. \n>> Ingrese la password:\n>> ");
             password = sc.nextLine();
         }
-        usuarioConectado.setContrasena(new Contrasenas(usuarioConectado.getNombreUsuario(), name, password));
+        usuarioConectado.setContrasena(new Contrasena(usuarioConectado.getNombreUsuario(), name, password));
         Varios.limpiar();
         System.out.println("Creando...");
         guardarContrasenas(Contrasenas, usuarios);
@@ -317,7 +317,7 @@ public class Principal {
         try {
             FileWriter fw = new FileWriter(Contrasenas);
             for (Usuario usuario : usuarios) {
-                for (Contrasenas contrasena : usuario.getContrasenas()) {
+                for (Contrasena contrasena : usuario.getContrasenas()) {
                     String encripted = Varios.encriptar(usuario.getNombreUsuario() + ";" + contrasena.getNombre() + ";"+ contrasena.getContrasena() + "\n");
                     fw.write(encripted);
                 }
@@ -328,15 +328,15 @@ public class Principal {
         }
     }
 
-    public static List<Contrasenas> traerContrasenas(File Contrasenas) {
-        List<Contrasenas> provisoria = new ArrayList<Contrasenas>();
+    public static List<Contrasena> traerContrasenas(File Contrasenas) {
+        List<Contrasena> provisoria = new ArrayList<Contrasena>();
         String[] datosContrasena = new String[5];
         try (Scanner sc = new Scanner(Contrasenas)) {
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
                 String decripted = Varios.desencriptar(datos);
                 datosContrasena = decripted.split(":");
-                provisoria.add(new Contrasenas(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
+                provisoria.add(new Contrasena(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -346,7 +346,7 @@ public class Principal {
 
     public static void main(String[] args) throws IOException {
         Varios.verificarDirectorios();
-        //Varios.mensaje();
+        Varios.mensaje();
         File Usuarios = new File("data/Usuarios.txt");
         Usuarios.createNewFile();
         File Contrasenas = new File("data/Contrasenas.txt");
@@ -354,7 +354,7 @@ public class Principal {
         List<Usuario> usuarios = new ArrayList<Usuario>();
         usuarios = traerUsuarios(Usuarios);
 
-        for (Contrasenas contrasena : traerContrasenas(Contrasenas)) {
+        for (Contrasena contrasena : traerContrasenas(Contrasenas)) {
             for (Usuario usuario : usuarios) {
                 if (contrasena.getId().equals(usuario.getNombreUsuario())) {
                     usuario.setContrasena(contrasena);
@@ -363,6 +363,6 @@ public class Principal {
         }
         System.out.println(usuarios);
         Scanner sc = new Scanner(System.in);
-        //logueo(Usuarios, Contrasenas, usuarios, sc);
+        logueo(Usuarios, Contrasenas, usuarios, sc);
     }
 }
