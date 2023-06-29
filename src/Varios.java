@@ -76,13 +76,14 @@ class Varios {
 
     static void limpiar() {
         try {
-            final String os = System.getProperty("os.name");
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                Runtime.getRuntime().exec("clear");
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
             }
-        } catch (final Exception e) {
+        } catch (Exception e) {
+            // Manejo de excepciones
             e.printStackTrace();
         }
     }
