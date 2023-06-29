@@ -10,6 +10,9 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+
+
+
 class Varios {
 
     static void verificarDirectorios() { // Verifica la existencia de la ruta necesaria y la crea si falta.

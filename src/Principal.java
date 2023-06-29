@@ -245,7 +245,7 @@ public class Principal {
         int indice = sc.nextInt();
         sc.nextLine();
         System.out.println(">> [n] Modificar nombre.");
-        System.out.print(">> [c] Modificar destinatario.\n>> ");
+        System.out.print(">> [c] Modificar password.\n>> ");
         try {
             String opcion = sc.nextLine();
             switch (opcion) {
@@ -346,7 +346,7 @@ public class Principal {
 
     public static void main(String[] args) throws IOException {
         Varios.verificarDirectorios();
-        Varios.mensaje();
+        //Varios.mensaje();
         File Usuarios = new File("data/Usuarios.txt");
         Usuarios.createNewFile();
         File Contrasenas = new File("data/Contrasenas.txt");
@@ -361,7 +361,8 @@ public class Principal {
                 }
             }
         }
+        System.out.println(usuarios);
         Scanner sc = new Scanner(System.in);
-        logueo(Usuarios, Contrasenas, usuarios, sc);
+        //logueo(Usuarios, Contrasenas, usuarios, sc);
     }
 }
