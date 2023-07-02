@@ -4,8 +4,10 @@
   <h1 align="center">SecureKey Manager</h1>
 </p>
 
-SecureKey Manager es una aplicación de gestión de contraseñas que te permite almacenar y proteger tus contraseñas de forma segura. 
-Con SecureKey Manager, puedes crear, editar, eliminar y acceder a tus contraseñas de manera conveniente y segura. 
+SecureKey Manager es una aplicación de gestión de contraseñas que te permite almacenar y proteger tus contraseñas de forma segura.
+
+Con SecureKey Manager, puedes crear, editar, eliminar y acceder a tus contraseñas de manera conveniente y segura.
+
 La aplicación utiliza algoritmos de cifrado avanzados para proteger tus contraseñas y garantizar la confidencialidad de tus datos.  
 
 ## Descripción
@@ -15,33 +17,39 @@ Gestor de contraseñas en Java basado en passtorage (https://github.com/matipret
 
 ### Funcionalidad
 
-Al ejecutar el programa, se muestra un mensaje de bienvenida con información relevante y se carga el sistema.
+1.  Al ejecutar el programa, se muestra un mensaje de bienvenida con información relevante y se carga el sistema.
 
-El usuario puede crear una cuenta nueva si aún no tiene una o puede iniciar sesión con una cuenta existente.
+2.  El usuario puede crear una cuenta nueva si aún no tiene una o puede iniciar sesión con una cuenta existente.
 
-Una vez que el usuario ha iniciado sesión, se le presenta un menú principal con opciones para crear, mostar, editar y eliminar contraseñas, o salir del programa.
+3.  Una vez que el usuario ha iniciado sesión, se le presenta un menú principal con opciones para crear, mostar, editar y eliminar contraseñas, o salir del programa.
 
-Al seleccionar la opción de crear contraseñas, se solicita el nombre y la contraseña, la que se encripta y guarda en la cuenta del usuario.
+4.  Al seleccionar la opción de crear contraseñas, se solicita el nombre y la contraseña, la que se encripta y guarda en la cuenta del usuario.
 
-Al seleccionar la opción de mostrar contraseñas, se muestran todas las contraseñas almacenadas en la cuenta del usuario.
+5.  Al seleccionar la opción de mostrar contraseñas, se muestran todas las contraseñas almacenadas en la cuenta del usuario.
 
-Al seleccionar la opción de editar contraseñas, se permite al usuario modificar las contraseñas almacenadas en su cuenta.
+6.  Al seleccionar la opción de editar contraseñas, se permite al usuario modificar las contraseñas almacenadas en su cuenta.
 
-Al seleccionar la opción de borrar contraseñas, se permite al usuario eliminar las contraseñas almacenadas en su cuenta.
+7.  Al seleccionar la opción de borrar contraseñas, se permite al usuario eliminar las contraseñas almacenadas en su cuenta.
 
-El usuario puede salir del programa seleccionando la opción correspondiente, devolviendolo a la pantalla de logueo.  
+8.  El usuario puede salir del programa seleccionando la opción correspondiente, devolviendolo a la pantalla de logueo.  
 
 En resumen, "SecureKey Manager" es una aplicación que brinda a los usuarios una forma conveniente de almacenar y acceder a sus contraseñas, evitando la necesidad de recordar múltiples contraseñas o anotarlas en lugares no seguros.
 
 ### Librerias
 
-java.io.File
-java.util.Base64
-java.util.List
-java.util.Scanner
-javax.crypto.Cipher
-javax.crypto.SecretKey
-javax.crypto.spec.SecretKeySpec
+* java.io.File
+
+* java.util.Base64
+
+* java.util.List
+
+* java.util.Scanner
+
+* javax.crypto.Cipher
+
+* javax.crypto.SecretKey
+
+* javax.crypto.spec.SecretKeySpec
 
 ### Ejecucion y compilacion
 

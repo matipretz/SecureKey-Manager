@@ -9,6 +9,14 @@ import java.util.Scanner;
 
 public class Principal {
 
+    /**
+     * Permite al usuario registrarse, iniciar sesión, o salir del programa.
+     * 
+     * @param Usuarios     El archivo que contiene los datos de los usuarios registrados.
+     * @param Contrasenas  El archivo que contiene los datos de las contraseñas.
+     * @param usuarios     La lista de usuarios registrados.
+     * @param sc           El objeto Scanner utilizado para leer la entrada del usuario.
+     */
     public static void logueo(File Usuarios, File Contrasenas, List<Usuario> usuarios, Scanner sc) {
         while (true) {
             Varios.limpiar();
@@ -19,11 +27,11 @@ public class Principal {
                 int option = sc.nextInt();
                 sc.nextLine();
                 switch (option) {
-                    case 1:
+                    case 1: // Registrarse
                         registrarse(Usuarios, usuarios, sc);
                         logueo(Usuarios, Contrasenas, usuarios, sc);
                         break;
-                    case 2:
+                    case 2: // Iniciar sesión
                         Usuario usuarioConectado = ingresar(usuarios, sc);
                         if (usuarioConectado != null) {
                             menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
@@ -31,20 +39,20 @@ public class Principal {
                             logueo(Contrasenas, Usuarios, usuarios, sc);
                         }
                         break;
-                    case 3:
+                    case 3: // Salir
                         Varios.limpiar();
                         System.out.print(">> Saliendo...");
                         Varios.pausa(1500);
                         Varios.limpiar();
                         System.exit(0);                
-                    default:
+                    default: // Opción inválida
                         Varios.limpiar();
                         System.out.println(">> Opción no válida. Vuelva a intentarlo.");
                         Varios.continuar(sc);
                         logueo(Usuarios, Contrasenas, usuarios, sc);
                         break;
                 }
-            } catch (Exception e) {
+            } catch (Exception e) { // Error en la entrada del usuario
                 sc.nextLine();
                 Varios.limpiar();
                 System.out.println(">> Opción no válida. Vuelva a intentarlo.");
@@ -54,11 +62,18 @@ public class Principal {
         }
     }
 
+    /**
+     * Realiza el proceso de registro de un nuevo usuario.
+     *
+     * @param Usuarios  El archivo que contiene los datos de los usuarios registrados.
+     * @param usuarios  La lista de usuarios registrados.
+     * @param sc        El objeto Scanner utilizado para leer la entrada del usuario.
+     */
     public static void registrarse(File Usuarios, List<Usuario> usuarios, Scanner sc) {
         Varios.limpiar();
         
         System.out.print("### Registrarse ###\n");
-        String nombreUsuario;
+        String nombreUsuario; // Solicitar y validar el nombre de usuario
         boolean nombreValido = false;
         do {
             System.out.print(">> Ingrese un nombre de usuario:\n>> ");
@@ -73,7 +88,8 @@ public class Principal {
                 nombreValido = true;
             }
         } while (!nombreValido);
-        String contrasenaUsuario;
+        String contrasenaUsuario; // Solicitar y validar la contraseña del usuario
+
         do {
             Console console = System.console();
              char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
@@ -84,30 +100,37 @@ public class Principal {
                 System.out.println(">> La password no puede estar vacía.");
             }
         } while (contrasenaUsuario.isEmpty());
-        usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario));
+        usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario)); // Agregar el nuevo usuario a la lista de usuarios registrados
         Varios.limpiar();
         System.out.println(">> Creando usuario...");
-        guardarUsuarios(Usuarios, usuarios);
+        guardarUsuarios(Usuarios, usuarios); // Guardar los usuarios en el archivo
         Varios.pausa(1500);
         System.out.println(">> Usuario creado.");
         Varios.continuar(sc);
     }
-
+    
+    /**
+     * Realiza el proceso de inicio de sesión.
+     *
+     * @param usuarios La lista de usuarios registrados.
+     * @param sc       El objeto Scanner utilizado para leer la entrada del usuario.
+     * @return El objeto Usuario correspondiente al usuario conectado, o null si el inicio de sesión falló.
+     */
     public static Usuario ingresar(List<Usuario> usuarios, Scanner sc) {
         Console console = System.console();
         Varios.limpiar();
         System.out.print("### Iniciar sesion ###\n");
-        System.out.print(">> Ingrese su nombre de usuario:\n>> ");
+        System.out.print(">> Ingrese su nombre de usuario:\n>> ");// Solicitar y leer el nombre de usuario
         String user = sc.nextLine();
-        char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
+        char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> "); // Solicitar y leer la contraseña del usuario
         String password = new String(passwordArray);
         int pos = -1;
-        for (int i = 0; i < usuarios.size(); i++) {
+        for (int i = 0; i < usuarios.size(); i++) { // Buscar el usuario en la lista de usuarios registrados
             if (usuarios.get(i).getNombreUsuario().equals(user)) {
                 pos = i;
             }
         }
-        if (pos == -1) {
+        if (pos == -1) { // Validar el inicio de sesión
             Varios.limpiar();
             System.out.println("Usuario no encontrado");
             Varios.continuar(sc);
@@ -127,6 +150,15 @@ public class Principal {
         }
     }
 
+    /**
+     * Muestra el menú de contraseñas y gestiona las diferentes opciones disponibles para el usuario conectado.
+     *
+     * @param Contrasenas       El archivo que almacena las contraseñas.
+     * @param Usuarios          El archivo que almacena los usuarios registrados.
+     * @param usuarios          La lista de usuarios registrados.
+     * @param usuarioConectado  El objeto Usuario correspondiente al usuario conectado.
+     * @param sc                El objeto Scanner utilizado para leer la entrada del usuario.
+     */
     public static void menuContrasenas(File Contrasenas, File Usuarios, List<Usuario> usuarios,
             Usuario usuarioConectado, Scanner sc) {
         while (true) {
@@ -136,7 +168,6 @@ public class Principal {
             Varios.limpiar();
             System.out.print(
                     "### SecureKey Manager 0.2 ###2\nSeleccione una opción:\n1. Crear password.\n2. Editar passwords.\n3. Borar passwords.\n4. Ver password.\n5. Configuracion de cuenta.(EN DESARROLLO)\n6. Cerrar sesion.\n>> ");
-
             try {
                 int option = sc.nextInt();
                 sc.nextLine();
