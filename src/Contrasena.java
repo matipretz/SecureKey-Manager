@@ -1,10 +1,8 @@
 public class Contrasena {
-    // Atributos
     private String id;
     private String nombre;
     private String contrasena;
 
-    // Constructor
     Contrasena(String id, String nombre, String contrasena) {
         this.id = id;
         this.nombre = nombre;

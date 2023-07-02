@@ -1,13 +1,10 @@
 <p align="center">
-  <img alt="cac logo" src="src\logo-CAC.webp" width="100px" />
+    <img alt="bac logo" src="img\bac.png" width="100px" />
+    <img alt="cac logo" src="img\logo-CAC.webp" width="100px" />  
   <h1 align="center">SecureKey Manager</h1>
 </p>
 
-
 Repositorio para el Trabajo Final Integrador de Codo 4.0 (2023) comison 23438 Java Inicial
-Alumno: Matias Martin Murad Pretz.
-Docente: Gonzalo F. Rubé.
-Tutor: Zoraida Flores.
 
 Gestor de contraseñas en Java basado en passtorage (https://github.com/matipretz/passtorage)
 
