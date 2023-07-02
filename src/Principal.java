@@ -36,7 +36,7 @@ public class Principal {
                         System.out.print(">> Saliendo...");
                         Varios.pausa(1500);
                         Varios.limpiar();
-                        System.exit(0);
+                        System.exit(0);                
                     default:
                         Varios.limpiar();
                         System.out.println(">> Opción no válida. Vuelva a intentarlo.");
@@ -76,7 +76,7 @@ public class Principal {
         String contrasenaUsuario;
         do {
             Console console = System.console();
-            char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
+             char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
             String password = new String(passwordArray);
             contrasenaUsuario = password;
             if (contrasenaUsuario.isEmpty()) {
@@ -222,7 +222,7 @@ public class Principal {
         System.out.print(">> Ingrese el ID de la password a borrar:\n>> ");
         int indice = sc.nextInt();
         sc.nextLine();
-        System.out.println(">> Está seguro/a de esta operación? [s / n]");
+        System.out.println(">> Confirma de esta operación? [s / n]");
         String resp = sc.nextLine();
         if (resp.equalsIgnoreCase("s")) {
             usuarioConectado.getContrasenas().remove(indice);
@@ -286,7 +286,7 @@ public class Principal {
         try {
             FileWriter fw = new FileWriter(Usuarios);
             for (Usuario usuario : usuarios) {
-                String encripted = Varios.encriptar(usuario.getNombreUsuario() + ":" + usuario.getContrasenaUsuario() + "\n");
+                String encripted = Varios.encriptar(usuario.getNombreUsuario() + ":" + usuario.getContrasenaUsuario());
                 fw.write(encripted);
             }
             fw.close();
@@ -318,7 +318,7 @@ public class Principal {
             FileWriter fw = new FileWriter(Contrasenas);
             for (Usuario usuario : usuarios) {
                 for (Contrasena contrasena : usuario.getContrasenas()) {
-                    String encripted = Varios.encriptar(usuario.getNombreUsuario() + ";" + contrasena.getNombre() + ";"+ contrasena.getContrasena() + "\n");
+                    String encripted = Varios.encriptar (usuario.getNombreUsuario() + ":" + contrasena.getNombre() + ":"+ contrasena.getContrasena());
                     fw.write(encripted);
                 }
             }
@@ -329,19 +329,22 @@ public class Principal {
     }
 
     public static List<Contrasena> traerContrasenas(File Contrasenas) {
-        List<Contrasena> provisoria = new ArrayList<Contrasena>();
-        String[] datosContrasena = new String[5];
-        try (Scanner sc = new Scanner(Contrasenas)) {
+        List<Contrasena> provisoriaContrasenas = new ArrayList<Contrasena>();
+        String[] datosContrasena = new String[3];
+        try {
+            Scanner sc = new Scanner(Contrasenas);
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
-                String decripted = Varios.desencriptar(datos);
+                String decripted = Varios.desencriptar (datos);
                 datosContrasena = decripted.split(":");
-                provisoria.add(new Contrasena(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
+                provisoriaContrasenas.add(new Contrasena(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
             }
+            sc.close();
+
         } catch (FileNotFoundException e) {
             System.out.println(e);
         }
-        return provisoria;
+        return provisoriaContrasenas;
     }
 
     public static void main(String[] args) throws IOException {
@@ -359,10 +362,13 @@ public class Principal {
                 if (contrasena.getId().equals(usuario.getNombreUsuario())) {
                     usuario.setContrasena(contrasena);
                 }
+            System.out.println(usuario.getNombreUsuario()+":"+usuario.getContrasenaUsuario());
+            System.out.println(contrasena.getId()+":"+contrasena.getNombre()+":"+contrasena.getContrasena());
+
             }
         }
-        System.out.println(usuarios);
         Scanner sc = new Scanner(System.in);
+        Varios.continuar(sc);
         logueo(Usuarios, Contrasenas, usuarios, sc);
     }
 }
