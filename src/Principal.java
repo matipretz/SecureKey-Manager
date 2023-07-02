@@ -245,7 +245,7 @@ public class Principal {
         int indice = sc.nextInt();
         sc.nextLine();
         System.out.println(">> [n] Modificar nombre.");
-        System.out.print(">> [c] Modificar password.\n>> ");
+        System.out.print(">> [p] Modificar password.\n>> ");
         try {
             String opcion = sc.nextLine();
             switch (opcion) {
@@ -255,10 +255,10 @@ public class Principal {
                     usuarioConectado.getContrasenas().get(indice).setNombre(nombre);
                     System.out.println("Modificando...");
                     Varios.pausa(500);
-                    System.out.println(">> Password modificada correctamente.");
+                    System.out.println(">> Nombre modificado correctamente.");
                     Varios.continuar(sc);
                     break;
-                case "c":
+                case "p":
                     System.out.print(">> Ingrese nueva contrasena:\n>> ");
                     String contrasena = sc.nextLine();
                     usuarioConectado.getContrasenas().get(indice).setContrasena(contrasena);
@@ -362,8 +362,8 @@ public class Principal {
                 if (contrasena.getId().equals(usuario.getNombreUsuario())) {
                     usuario.setContrasena(contrasena);
                 }
-            System.out.println(usuario.getNombreUsuario()+":"+usuario.getContrasenaUsuario());
-            System.out.println(contrasena.getId()+":"+contrasena.getNombre()+":"+contrasena.getContrasena());
+            //System.out.println(usuario.getNombreUsuario()+":"+usuario.getContrasenaUsuario());
+            //System.out.println(contrasena.getId()+":"+contrasena.getNombre()+":"+contrasena.getContrasena());
 
             }
         }
