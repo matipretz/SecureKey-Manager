@@ -36,11 +36,11 @@ Gestor de contraseñas en Java basado en passtorage (https://github.com/matipret
 En resumen, "SecureKey Manager" es una aplicación que brinda a los usuarios una forma conveniente de almacenar y acceder a sus contraseñas, evitando la necesidad de recordar múltiples contraseñas o anotarlas en lugares no seguros.
 
 ### Contenido por paquetes
-* .vscode: configuracion de entorno de desarrollo.
+
 * dist: Archivos de distribucion.
 * docs: Documentación generada por javadoc.
 * img: Repositorio de imagenes utilizadas por este archivo.
-* lib: Librerias utilizadas por vs
+* src/paq: Codigo fuente
 
 ### Librerias
 

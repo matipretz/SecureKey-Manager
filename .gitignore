@@ -75,6 +75,8 @@ $RECYCLE.BIN/
 
 # Model files
 data
+.vscode
+bin
 
 # Windows shortcuts
 *.lnk
