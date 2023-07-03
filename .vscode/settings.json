@@ -3,5 +3,13 @@
         "src"
     ],
     "java.project.outputPath": "bin",
-    "java.dependency.packagePresentation": "hierarchical"
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "lib/junit-4.13.2.jar"
+        ]
+    }
 }
