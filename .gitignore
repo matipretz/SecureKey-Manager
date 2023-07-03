@@ -74,8 +74,6 @@ $RECYCLE.BIN/
 *.msp
 
 # Model files
-data
-lib
 
 # Windows shortcuts
 *.lnk

@@ -1,3 +1,5 @@
+package paq;
+
 import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,16 +8,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * Clase principal que contiene la estructura del programa y su metodo main.
+ *
+ */
 public class Principal {
 
     /**
      * Permite al usuario registrarse, iniciar sesión, o salir del programa.
-     * 
-     * @param Usuarios     El archivo que contiene los datos de los usuarios registrados.
-     * @param Contrasenas  El archivo que contiene los datos de las contraseñas.
-     * @param usuarios     La lista de usuarios registrados.
-     * @param sc           El objeto Scanner utilizado para leer la entrada del usuario.
+     *
+     * @param Usuarios    El archivo que contiene los datos de los usuarios
+     *                    registrados.
+     * @param Contrasenas El archivo que contiene los datos de las contraseñas.
+     * @param usuarios    La lista de usuarios registrados.
+     * @param sc          El objeto Scanner utilizado para leer la entrada del
+     *                    usuario.
      */
     public static void logueo(File Usuarios, File Contrasenas, List<Usuario> usuarios, Scanner sc) {
         while (true) {
@@ -43,8 +50,7 @@ public class Principal {
                         Varios.limpiar();
                         System.out.print(">> Saliendo...");
                         Varios.pausa(1500);
-                        Varios.limpiar();
-                        System.exit(0);                
+                        System.exit(0);
                     default: // Opción inválida
                         Varios.limpiar();
                         System.out.println(">> Opción no válida. Vuelva a intentarlo.");
@@ -65,13 +71,14 @@ public class Principal {
     /**
      * Realiza el proceso de registro de un nuevo usuario.
      *
-     * @param Usuarios  El archivo que contiene los datos de los usuarios registrados.
-     * @param usuarios  La lista de usuarios registrados.
-     * @param sc        El objeto Scanner utilizado para leer la entrada del usuario.
+     * @param Usuarios El archivo que contiene los datos de los usuarios
+     *                 registrados.
+     * @param usuarios La lista de usuarios registrados.
+     * @param sc       El objeto Scanner utilizado para leer la entrada del usuario.
      */
     public static void registrarse(File Usuarios, List<Usuario> usuarios, Scanner sc) {
         Varios.limpiar();
-        
+
         System.out.print("### Registrarse ###\n");
         String nombreUsuario; // Solicitar y validar el nombre de usuario
         boolean nombreValido = false;
@@ -92,7 +99,7 @@ public class Principal {
 
         do {
             Console console = System.console();
-             char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
+            char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> ");
             String password = new String(passwordArray);
             contrasenaUsuario = password;
             if (contrasenaUsuario.isEmpty()) {
@@ -100,7 +107,8 @@ public class Principal {
                 System.out.println(">> La password no puede estar vacía.");
             }
         } while (contrasenaUsuario.isEmpty());
-        usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario)); // Agregar el nuevo usuario a la lista de usuarios registrados
+        usuarios.add(new Usuario(nombreUsuario, contrasenaUsuario)); // Agregar el nuevo usuario a la lista de usuarios
+                                                                     // registrados
         Varios.limpiar();
         System.out.println(">> Creando usuario...");
         guardarUsuarios(Usuarios, usuarios); // Guardar los usuarios en el archivo
@@ -108,13 +116,14 @@ public class Principal {
         System.out.println(">> Usuario creado.");
         Varios.continuar(sc);
     }
-    
+
     /**
      * Realiza el proceso de inicio de sesión.
      *
      * @param usuarios La lista de usuarios registrados.
      * @param sc       El objeto Scanner utilizado para leer la entrada del usuario.
-     * @return El objeto Usuario correspondiente al usuario conectado, o null si el inicio de sesión falló.
+     * @return El objeto Usuario correspondiente al usuario conectado, o null si el
+     *         inicio de sesión falló.
      */
     public static Usuario ingresar(List<Usuario> usuarios, Scanner sc) {
         Console console = System.console();
@@ -122,7 +131,9 @@ public class Principal {
         System.out.print("### Iniciar sesion ###\n");
         System.out.print(">> Ingrese su nombre de usuario:\n>> ");// Solicitar y leer el nombre de usuario
         String user = sc.nextLine();
-        char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> "); // Solicitar y leer la contraseña del usuario
+        char[] passwordArray = console.readPassword(">> Ingrese su password:    (echo=off)\n>> "); // Solicitar y leer
+                                                                                                   // la contraseña del
+                                                                                                   // usuario
         String password = new String(passwordArray);
         int pos = -1;
         for (int i = 0; i < usuarios.size(); i++) { // Buscar el usuario en la lista de usuarios registrados
@@ -151,13 +162,16 @@ public class Principal {
     }
 
     /**
-     * Muestra el menú de contraseñas y gestiona las diferentes opciones disponibles para el usuario conectado.
+     * Muestra el menú de contraseñas y gestiona las diferentes opciones disponibles
+     * para el usuario conectado.
      *
-     * @param Contrasenas       El archivo que almacena las contraseñas.
-     * @param Usuarios          El archivo que almacena los usuarios registrados.
-     * @param usuarios          La lista de usuarios registrados.
-     * @param usuarioConectado  El objeto Usuario correspondiente al usuario conectado.
-     * @param sc                El objeto Scanner utilizado para leer la entrada del usuario.
+     * @param Contrasenas      El archivo que almacena las contraseñas.
+     * @param Usuarios         El archivo que almacena los usuarios registrados.
+     * @param usuarios         La lista de usuarios registrados.
+     * @param usuarioConectado El objeto Usuario correspondiente al usuario
+     *                         conectado.
+     * @param sc               El objeto Scanner utilizado para leer la entrada del
+     *                         usuario.
      */
     public static void menuContrasenas(File Contrasenas, File Usuarios, List<Usuario> usuarios,
             Usuario usuarioConectado, Scanner sc) {
@@ -217,6 +231,18 @@ public class Principal {
         }
     }
 
+    /**
+     * Crea una nueva contraseña para el usuario conectado y la guarda en el archivo
+     * de contraseñas.
+     *
+     * @param Contrasenas      El archivo que almacena las contraseñas.
+     * @param Usuarios         El archivo que almacena los usuarios registrados.
+     * @param usuarios         La lista de usuarios registrados.
+     * @param usuarioConectado El objeto Usuario correspondiente al usuario
+     *                         conectado.
+     * @param sc               El objeto Scanner utilizado para leer la entrada del
+     *                         usuario.
+     */
     public static void crearContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
             Usuario usuarioConectado, Scanner sc) {
         Varios.limpiar();
@@ -231,7 +257,7 @@ public class Principal {
         Console console = System.console();
         char[] passwordArray = console.readPassword(">> Ingrese la password:    (echo=off)\n>> ");
         String password = new String(passwordArray);
-        while (password.trim().isEmpty()) { 
+        while (password.trim().isEmpty()) {
             System.out.print(">> La password no puede estar vacia. \n>> Ingrese la password:\n>> ");
             password = sc.nextLine();
         }
@@ -245,6 +271,18 @@ public class Principal {
         menuContrasenas(Contrasenas, Usuarios, usuarios, usuarioConectado, sc);
     }
 
+    /**
+     * Elimina una contraseña del usuario conectado y actualiza el archivo de
+     * contraseñas.
+     *
+     * @param Contrasenas      El archivo que almacena las contraseñas.
+     * @param Usuarios         El archivo que almacena los usuarios registrados.
+     * @param usuarios         La lista de usuarios registrados.
+     * @param usuarioConectado El objeto Usuario correspondiente al usuario
+     *                         conectado.
+     * @param sc               El objeto Scanner utilizado para leer la entrada del
+     *                         usuario.
+     */
     public static void eliminarContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
             Usuario usuarioConectado, Scanner sc) {
         Varios.limpiar();
@@ -270,6 +308,22 @@ public class Principal {
         }
     }
 
+    /**
+     * Permite al usuario modificar una contraseña existente en su lista de
+     * contraseñas.
+     * El usuario puede elegir entre modificar el nombre o la contraseña de la
+     * contraseña seleccionada.
+     * Después de la modificación, se guardan los cambios en el archivo de
+     * contraseñas y se muestra el mensaje correspondiente.
+     *
+     * @param Contrasenas      El archivo que almacena las contraseñas.
+     * @param Usuarios         El archivo que almacena los usuarios registrados.
+     * @param usuarios         La lista de usuarios registrados.
+     * @param usuarioConectado El objeto Usuario correspondiente al usuario
+     *                         conectado.
+     * @param sc               El objeto Scanner utilizado para leer la entrada del
+     *                         usuario.
+     */
     public static void modificarContrasena(File Contrasenas, File Usuarios, List<Usuario> usuarios,
             Usuario usuarioConectado, Scanner sc) {
         System.out.print(">> Ingrese ID de la password que desea modificar:\n>> ");
@@ -313,6 +367,12 @@ public class Principal {
         menuContrasenas(Usuarios, Usuarios, usuarios, usuarioConectado, sc);
     }
 
+    /**
+     * Guarda la lista de usuarios en el archivo de usuarios.
+     *
+     * @param Usuarios El archivo que almacena los usuarios registrados.
+     * @param usuarios La lista de usuarios registrados.
+     */
     public static void guardarUsuarios(File Usuarios, List<Usuario> usuarios) {
         try {
             FileWriter fw = new FileWriter(Usuarios);
@@ -326,6 +386,12 @@ public class Principal {
         }
     }
 
+    /**
+     * Trae la lista de usuarios desde el archivo de usuarios.
+     *
+     * @param Usuarios El archivo que contiene los usuarios registrados.
+     * @return Una lista de usuarios obtenida del archivo.
+     */
     public static List<Usuario> traerUsuarios(File Usuarios) {
         List<Usuario> listaProvisoria = new ArrayList<Usuario>();
         String[] atributosUsuario = new String[2];
@@ -344,12 +410,19 @@ public class Principal {
         return listaProvisoria;
     }
 
+    /**
+     * Guarda las contraseñas de los usuarios en el archivo de contraseñas.
+     *
+     * @param Contrasenas El archivo en el que se guardarán las contraseñas.
+     * @param usuarios    La lista de usuarios con las contraseñas a guardar.
+     */
     public static void guardarContrasenas(File Contrasenas, List<Usuario> usuarios) {
         try {
             FileWriter fw = new FileWriter(Contrasenas);
             for (Usuario usuario : usuarios) {
                 for (Contrasena contrasena : usuario.getContrasenas()) {
-                    String encripted = Varios.encriptar (usuario.getNombreUsuario() + ":" + contrasena.getNombre() + ":"+ contrasena.getContrasena());
+                    String encripted = Varios.encriptar(usuario.getNombreUsuario() + ":" + contrasena.getNombre() + ":"
+                            + contrasena.getContrasena());
                     fw.write(encripted);
                 }
             }
@@ -359,6 +432,14 @@ public class Principal {
         }
     }
 
+    /**
+     * Trae las contraseñas desde el archivo de contraseñas y las devuelve como una
+     * lista de objetos Contrasena.
+     *
+     * @param Contrasenas El archivo del cual se leerán las contraseñas.
+     * @return Una lista de objetos Contrasena con las contraseñas recuperadas del
+     *         archivo.
+     */
     public static List<Contrasena> traerContrasenas(File Contrasenas) {
         List<Contrasena> provisoriaContrasenas = new ArrayList<Contrasena>();
         String[] datosContrasena = new String[3];
@@ -366,7 +447,7 @@ public class Principal {
             Scanner sc = new Scanner(Contrasenas);
             while (sc.hasNextLine()) {
                 String datos = sc.nextLine();
-                String decripted = Varios.desencriptar (datos);
+                String decripted = Varios.desencriptar(datos);
                 datosContrasena = decripted.split(":");
                 provisoriaContrasenas.add(new Contrasena(datosContrasena[0], datosContrasena[1], datosContrasena[2]));
             }
@@ -378,9 +459,17 @@ public class Principal {
         return provisoriaContrasenas;
     }
 
+    /**
+     * Punto de entrada del programa.
+     *
+     * @param args Los argumentos de línea de comandos.
+     * @throws IOException Si ocurre un error de entrada/salida durante la ejecución
+     *                     del programa.
+     */
     public static void main(String[] args) throws IOException {
         Varios.verificarDirectorios();
-        Varios.mensaje();
+        Scanner sc = new Scanner(System.in);
+        Varios.mensaje(sc);
         File Usuarios = new File("data/Usuarios.txt");
         Usuarios.createNewFile();
         File Contrasenas = new File("data/Contrasenas.txt");
@@ -393,13 +482,12 @@ public class Principal {
                 if (contrasena.getId().equals(usuario.getNombreUsuario())) {
                     usuario.setContrasena(contrasena);
                 }
-            //System.out.println(usuario.getNombreUsuario()+":"+usuario.getContrasenaUsuario());
-            //System.out.println(contrasena.getId()+":"+contrasena.getNombre()+":"+contrasena.getContrasena());
-
+                // Sentencias de testeo:
+                // System.out.println(usuario.getNombreUsuario()+":"+usuario.getContrasenaUsuario());
+                // System.out.println(contrasena.getId()+":"+contrasena.getNombre()+":"+contrasena.getContrasena());
             }
         }
-        Scanner sc = new Scanner(System.in);
-        Varios.continuar(sc);
+        // Varios.continuar(sc);
         logueo(Usuarios, Contrasenas, usuarios, sc);
     }
 }
