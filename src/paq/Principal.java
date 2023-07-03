@@ -51,6 +51,7 @@ public class Principal {
                         System.out.print(">> Saliendo...");
                         Varios.pausa(1500);
                         System.exit(0);
+                        break;
                     default: // Opción inválida
                         Varios.limpiar();
                         System.out.println(">> Opción no válida. Vuelva a intentarlo.");
