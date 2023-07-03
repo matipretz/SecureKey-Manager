@@ -4,6 +4,20 @@
   <h1 align="center">SecureKey Manager</h1>
 </p>
 
+1. [Introducción](#introducción)
+2. [Descripción](#descripción)
+   - [Funcionalidad](#funcionalidad)
+   - [Contenido por paquetes](#contenido-por-paquetes)
+   - [Librerías](#librerías)
+   - [Ejecución y compilación](#ejecución-y-compilación)
+3. [Ayuda](#ayuda)
+4. [Autor](#autor)
+5. [Historial de versiones](#historial-de-versiones)
+6. [Licencia](#licencia)
+7. [Roadmap](#roadmap)
+
+## Introducción
+
 SecureKey Manager es una aplicación de gestión de contraseñas que te permite almacenar y proteger tus contraseñas de forma segura.
 
 Con SecureKey Manager, puedes crear, editar, eliminar y acceder a tus contraseñas de manera conveniente y segura.
@@ -90,7 +104,7 @@ De presentarse este problema, desabilitar los mecanismos de cifrado y eliminar e
 
 Matias Martin Murad Pretz (https://github.com/matipretz)
 
-## Version History
+## Historial de versiones
 
 * 0.2
 Implementa criptografia.
