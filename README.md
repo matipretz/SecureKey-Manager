@@ -1,6 +1,6 @@
 <p align="center">
     <img alt="bac logo" src="img\bac.png" width="400px" />
-    <img alt="cac logo" src="img\logo-CAC.webp" width="400px" />  
+    <img alt="cac logo" src="img\logo-CAC.webp" width="200" />  
   <h1 align="center">SecureKey Manager</h1>
 </p>
 
