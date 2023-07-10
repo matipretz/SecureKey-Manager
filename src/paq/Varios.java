@@ -9,7 +9,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * La clase Varios contiene diversas funciones auxiliares utilizadas en el programa principal.
+ * La clase Varios contiene diversas funciones auxiliares utilizadas en el
+ * programa principal.
  */
 public class Varios {
 
@@ -56,8 +57,9 @@ public class Varios {
 
     /**
      * Muestra un mensaje de presentación en la consola.
+     * 
      * @param sc El objeto Scanner utilizado para leer la entrada del usuario.
-
+     * 
      */
     public static void mensaje(Scanner sc) {
         limpiar();
