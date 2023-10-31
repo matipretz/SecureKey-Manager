@@ -74,7 +74,8 @@ En resumen, "SecureKey Manager" es una aplicación que brinda a los usuarios una
 * javax.crypto.spec.SecretKeySpec
 
 ### Documentación
-La documentación generada por javadoc puede consultarse en: [GitHub Pages](https://matipretz.github.io/SecureKey/)
+La documentación generada por javadoc puede consultarse en: [GitHub Pages](http://matipretz.ar/SecureKey-Manager/)
+
 
 
 ### Ejecucion y compilacion
